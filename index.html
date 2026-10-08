@@ -7,7 +7,7 @@
 <meta name="description" content="Cael Magill: hitting and player development technology. Pitcher Advance, Baserunning Review and GameData Pro, with demo videos and reports.">
 <meta property="og:title" content="Cael Magill Portfolio">
 <meta property="og:description" content="Hitting and player development technology: scouting, baserunning and post-game tools built on TrackMan, Hawk-Eye and MLB data.">
-<meta property="og:image" content="media/pa.jpg">
+<meta property="og:image" content="media/pa2.jpg">
 <style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}a.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}</style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,6 +191,12 @@ dl.skills dd{margin:0;font-size:14.5px}
   .cv li{grid-template-columns:minmax(0,1fr);gap:4px}
 }
 
+.tabcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:28px}
+.tabcard{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.tabcard h3{font:700 14.5px/1.3 var(--body);letter-spacing:-.01em;margin:0 0 6px;color:var(--ink)}
+.tabcard p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.detail.detail-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:860px){.detail.detail-2{grid-template-columns:minmax(0,1fr)}}
 /* ---- App theme overrides ---- */
 body{font-size:15px;padding-inline:20px}
 h1,h2,h3{font-family:var(--body);letter-spacing:-.02em;text-transform:none!important}
@@ -335,35 +341,44 @@ dl.skills dt{font:600 11px/1.7 var(--body)}
   <section class="project" id="pitcher-prep">
     <div class="p-head">
       <div><span class="label phase">Before first pitch · Advance scouting</span><h2>Pitcher Advance</h2></div>
-      <p class="q"><b>Built to get hitters ready for the opposing starter.</b> Pick any MLB pitcher, split him by batter side, and see his arsenal, how he attacks in each count, how his pitches tunnel and how he matches up with a specific hitter. One click exports a one-page report for the hitters.</p>
+      <p class="q"><b>Built to get hitters ready for the opposing starter.</b> Pick any MLB pitcher, split him by batter side and go tab by tab: how he attacks, how he sequences, how his pitches tunnel, his release and approach angles, how he holds up deep in games, a video playlist and a printable game plan for the hitters.</p>
     </div>
 
     <div class="player" data-player>
-      <video src="media/pa.mp4" poster="media/pa.jpg" controls muted playsinline preload="metadata"></video>
+      <video src="media/pa2.mp4" poster="media/pa2.jpg" controls muted playsinline preload="metadata"></video>
       <div class="chapters">
         <button data-t="0"><span>0:00</span>Overview &amp; scouting takeaways</button>
-        <button data-t="10"><span>0:10</span>Switch pitcher</button>
-        <button data-t="25"><span>0:25</span>How he attacks</button>
-        <button data-t="38"><span>0:38</span>Tunneling</button>
-        <button data-t="58"><span>0:58</span>Trends &amp; game log</button>
-        <button data-t="70"><span>1:10</span>Batter-side splits</button>
-        <button data-t="80"><span>1:20</span>Pitcher vs hitter matchup</button>
-        <button data-t="108"><span>1:48</span>Best-pitch leaderboard</button>
+        <button data-t="16"><span>0:16</span>Switch pitcher</button>
+        <button data-t="33"><span>0:33</span>How he attacks</button>
+        <button data-t="46"><span>0:46</span>Sequencing</button>
+        <button data-t="56"><span>0:56</span>Tunneling</button>
+        <button data-t="70"><span>1:10</span>Side-by-side video</button>
+        <button data-t="79"><span>1:19</span>Video overlay</button>
+        <button data-t="90"><span>1:30</span>Release</button>
+        <button data-t="98"><span>1:38</span>Approach angles</button>
+        <button data-t="105"><span>1:45</span>Fatigue</button>
+        <button data-t="113"><span>1:53</span>Trends &amp; game log</button>
+        <button data-t="120"><span>2:00</span>Clip playlist</button>
+        <button data-t="151"><span>2:31</span>Game plan</button>
       </div>
     </div>
 
-    <div class="detail">
-      <div>
-        <h3>What it does</h3>
-        <ul>
-          <li><b>Scouting takeaways</b> written automatically: his best pitch with its score and rank, what he throws with two strikes, his first-pitch mix and strike rate, his put-away pitch and any big platoon split.</li>
-          <li><b>KPI tiles and arsenal table</b>, shaded against the league average for the same pitch type and handedness.</li>
-          <li><b>Location heat maps</b> built with 2D kernel density estimates, plus a 13-zone grid.</li>
-          <li><b>Tunneling</b> rebuilds the average flight of each pitch type from release to the plate using the pitch's velocity and acceleration. You can watch them from behind the plate or from either batter's box, and see how far apart they are at release, at the hitter's commit point (0.167 seconds before the plate) and at the plate.</li>
-          <li><b>Matchup</b> lines up the pitcher's arsenal against how the hitter has done versus each pitch type from same-handed pitchers, flags who has the edge on each pitch and lists every plate appearance between them.</li>
-          <li><b>Synced video grid</b> of MLB clips, pulled from one at-bat or from the most typical pitch of each type.</li>
-        </ul>
-      </div>
+    <div class="tabcards">
+      <div class="tabcard"><h3>Overview</h3><p>Scouting takeaways written automatically: his best pitch with its score and rank, his two-strike pitch, first-pitch mix and his put-away pitch. KPI tiles and an arsenal table shaded against league average.</p></div>
+      <div class="tabcard"><h3>How he attacks</h3><p>Pitch mix in every count, plus location heat maps and a 13-zone grid filtered by pitch and outcome.</p></div>
+      <div class="tabcard"><h3>Sequencing</h3><p>What he throws next after each pitch, by count, and which pitch pairs get extra whiffs. For example, McLean's cutter after a sinker gets 32% whiffs vs. 18% normally.</p></div>
+      <div class="tabcard"><h3>Tunneling</h3><p>Each pitch's average flight from release to the plate, from behind the plate or either batter's box, with the gaps at release, at the commit point and at the plate.</p></div>
+      <div class="tabcard"><h3>Tunnel video</h3><p>Two real pitches side by side, or stacked on top of each other and lined up on release, so you can see where they stay together and where they split.</p></div>
+      <div class="tabcard"><h3>Release</h3><p>Release points and how consistent each pitch is, ranked against MLB, plus possible tells. For example, his slider comes out 4.1 inches to the side of his sinker.</p></div>
+      <div class="tabcard"><h3>Approach</h3><p>Vertical and horizontal approach angles compared with what's expected for his location and velo, a “plays like” velo for fastballs, a grade for each pitch and where in the zone it plays up.</p></div>
+      <div class="tabcard"><h3>Fatigue</h3><p>Velo, spin, movement, whiff% and CSW% by pitch count in the outing, plus how hitters do the first, second and third time through the order.</p></div>
+      <div class="tabcard"><h3>Trends</h3><p>Velo and pitch usage by outing over the season, and a game log joined to the pitch data.</p></div>
+      <div class="tabcard"><h3>Clips</h3><p>Build a video playlist of any pitch filtered by count, result and location. For example, every two-strike four-seam whiff, newest first.</p></div>
+      <div class="tabcard"><h3>Game plan</h3><p>A printable one-page plan for hitters: what to take on the first pitch, what to sit on in hitter's counts, what to lay off, how to handle two strikes and where to do damage, with heat maps.</p></div>
+      <div class="tabcard"><h3>Matchup & Leaderboard</h3><p>Pitcher vs. a specific hitter with every plate appearance between them, and a leaderboard of the best pitches in baseball.</p></div>
+    </div>
+
+    <div class="detail detail-2">
       <div>
         <h3>The pitch score model</h3>
         <p class="model-lede">I built a score for every 2026 pitch type with at least 300 pitches and 40 batted balls. 100 is average and every 10 points is one standard deviation.</p>
@@ -390,7 +405,6 @@ dl.skills dt{font:600 11px/1.7 var(--body)}
         <ul class="facts-list">
           <li><b class="num">714,483</b> pitches from <b class="num">2,429</b> games, 99.9% matched between the MLB Stats API and Baseball Savant</li>
           <li><b class="num">785</b> qualified pitcher–pitch combinations, ranked overall and split by batter side</li>
-          <li><b class="num">2,564</b> lines of R across the pipeline and the app</li>
         </ul>
         <div class="stack"><span>R</span><span>Shiny + bslib modules</span><span>plotly</span><span>DT</span><span>ggplot2 + patchwork</span><span>glmnet</span><span>furrr (parallel)</span><span>httr2</span><span>MLB Stats API</span><span>Baseball Savant</span></div>
         <p class="note-sm">The data pipeline saves every game feed and daily Savant file so nothing gets pulled twice, checks that the MLB and Savant data line up (match rate, velo correlation and pitch-type agreement) and retries failed requests. The one-pager is built entirely in ggplot2 and patchwork, tables included, and exports to PDF or PNG.</p>

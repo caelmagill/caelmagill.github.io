@@ -12,342 +12,277 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap">
 <style>
-/* Layout: a game-day sequence. Hero with a route trace, then three tools ordered pregame -> in-game review -> postgame, each with a chaptered demo video and its printed reports. */
+/* Layout: a printed advance-scouting packet. One white letter-size sheet on a gray desk.
+   Report header block, contents with dot leaders, then three reports (pregame, in-game, postgame)
+   each opening with a ruled form header. Ruled tables instead of cards. Single light theme by choice: it's paper. */
 :root{
-  /* App design system shared by Pitcher Advance, Baserunning Review and GameData Pro. Single light theme by choice, like the apps. */
-  --navy:#0b1f3a; --navy2:#13305a; --bg:#f4f6f9; --surface:#ffffff; --ink:#0b1f3a; --muted:#4a5568; --faint:#8a94a6;
-  --line:#e6e9ef; --accent:#2a78d6; --accent-soft:#e8f0fb; --chip:#eef1f5; --good:#1baf7a; --orange:#EB6E1F;
-  --r-blue:#2a78d6; --r-orange:#d9480f; --r-green:#1baf7a; --field:#eef1f5;
-  --display:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --desk:#dfe1e4; --paper:#ffffff; --ink:#15233f; --pencil:#5b6474; --rule:#c7ccd4; --hair:#e4e7ec;
+  --blue:#1f3f99; --flag:#b42318; --shade:#f3f5f8;
+  --r-blue:#1f3f99; --r-red:#b42318; --r-green:#1d7a4c;
+  --face:"Libre Franklin","Franklin Gothic Medium","Franklin Gothic","Arial Narrow",Arial,sans-serif;
   color-scheme:light;
 }
-
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);padding-inline:20px}
-.wrap{max-width:1160px;margin:0 auto}
-a{color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:.01em;line-height:1;text-wrap:balance;margin:0}
-.label{font:500 12px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.num{font-variant-numeric:tabular-nums}
+body{background:var(--desk);color:var(--ink);font:400 15.5px/1.6 var(--face);padding-inline:20px;padding-block:28px 48px;font-variant-numeric:tabular-nums}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
 
-/* top bar */
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-block:22px;border-bottom:1px solid var(--line)}
-.top .name{font:800 22px/1 var(--display);letter-spacing:.04em;text-transform:uppercase}
-.top nav{display:flex;gap:18px;flex-wrap:wrap}
-.top nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
-.top nav a:hover{color:var(--ink)}
+.sheet{max-width:940px;margin:0 auto;background:var(--paper);box-shadow:0 1px 0 #c3c7cd,0 12px 30px -18px rgba(21,35,63,.45);padding:44px 56px 56px}
 
-/* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;padding-block:56px 64px}
-.hero h1{font-size:clamp(44px,7vw,84px);text-transform:uppercase;margin-block:14px 22px}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero p{max-width:58ch;color:var(--muted);font-size:18px;margin:0 0 26px}
-.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:0;padding:0;list-style:none}
-.facts li{display:flex;flex-direction:column;gap:2px}
-.facts b{font:500 15px/1.3 var(--body);color:var(--ink)}
-.diagram{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px}
-.diagram svg{display:block;width:100%;height:auto}
-.diagram .cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
-.route{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-dasharray:var(--len);stroke-dashoffset:0}
+/* running head, like a printed packet */
+.runhead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--pencil);border-bottom:1px solid var(--ink);padding-bottom:8px}
+.runhead nav{display:flex;gap:16px;flex-wrap:wrap}
+.runhead a{color:var(--pencil);text-decoration:none}
+.runhead a:hover{color:var(--ink);text-decoration:underline}
+
+/* report title block */
+.title{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;align-items:end;padding-block:26px 14px;border-bottom:3px double var(--ink)}
+.title h1{font-weight:900;font-size:clamp(34px,6vw,58px);line-height:.95;letter-spacing:-.025em}
+.title .kind{font-weight:800;font-size:15px;letter-spacing:.14em;color:var(--blue);margin-bottom:8px}
+.title .stamp{font-size:13px;color:var(--pencil);text-align:right;line-height:1.45}
+
+/* form grid: labelled boxes like a paper scouting form */
+.form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-left:1px solid var(--rule);border-top:1px solid var(--rule);margin-top:18px}
+.form > div{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:7px 10px 9px;min-width:0}
+.form small{display:block;font-size:11.5px;color:var(--pencil);line-height:1.3}
+.form b{display:block;font-weight:600;font-size:15px;line-height:1.35}
+.form .wide{grid-column:span 2}
+.form .full{grid-column:1 / -1}
+
+.summary{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:32px;margin-top:26px;align-items:start}
+.summary h2,.sec-h{font-weight:800;font-size:15px;letter-spacing:.02em;border-bottom:1px solid var(--ink);padding-bottom:4px;margin-bottom:12px}
+.summary p{max-width:60ch}
+.summary p + p{margin-top:10px}
+
+/* contents with dot leaders */
+.contents{list-style:none;margin:16px 0 0;padding:0}
+.contents li a{display:flex;align-items:baseline;gap:8px;color:var(--ink);text-decoration:none;padding-block:5px}
+.contents li a:hover .nm{text-decoration:underline}
+.contents .no{font-weight:800;width:1.4em;color:var(--blue)}
+.contents .nm{font-weight:600}
+.contents .lead{flex:1;border-bottom:2px dotted var(--rule);transform:translateY(-4px);min-width:20px}
+.contents .when{color:var(--pencil);font-size:14px}
+
+/* figure: route trace */
+.fig{border:1px solid var(--rule);padding:12px 12px 10px}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{font-size:12.5px;color:var(--pencil);margin-top:6px;line-height:1.45}
+.fig figcaption b{color:var(--ink);font-weight:600}
+.key{display:inline-flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+.key i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px}
+.route{fill:none;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:var(--len);stroke-dashoffset:0}
 @media (prefers-reduced-motion:no-preference){
-  .route{animation:draw 2.4s cubic-bezier(.4,0,.2,1) both}
-  .route.b{animation-delay:.2s}.route.o{animation-delay:.5s}.route.g{animation-delay:.8s}
+  .route{animation:draw 2.2s cubic-bezier(.4,0,.2,1) both}
+  .route.o{animation-delay:.3s}.route.g{animation-delay:.6s}
   @keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
 }
 
-/* day strip */
-.day{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-block:1px solid var(--line);margin-bottom:24px}
-.day a{display:flex;flex-direction:column;gap:6px;padding:20px 20px 22px 0;text-decoration:none;color:var(--ink)}
-.day a + a{padding-left:20px;border-left:1px solid var(--line)}
-.day strong{font:800 28px/1 var(--display);text-transform:uppercase}
-.day span:last-child{color:var(--muted);font-size:14px}
-.day a:hover strong{color:var(--accent)}
+/* report sections */
+.report{margin-top:56px;padding-top:0}
+.rhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 18px;align-items:end;border-bottom:3px double var(--ink);padding-bottom:10px}
+.rhead .no{font-weight:900;font-size:64px;line-height:.8;color:var(--blue);letter-spacing:-.04em}
+.rhead h2{font-weight:900;font-size:clamp(28px,4.4vw,40px);line-height:1;letter-spacing:-.02em}
+.rhead p{color:var(--pencil);font-size:14px;margin-top:4px}
+.lede{margin-top:16px;font-size:17px;line-height:1.55;max-width:66ch}
 
-/* project */
-.project{padding-block:64px;border-bottom:1px solid var(--line)}
-.p-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:28px}
-.p-head h2{font-size:clamp(40px,5.5vw,64px);text-transform:uppercase;margin-top:10px}
-.p-head .q{font-size:19px;line-height:1.5;margin:0;max-width:52ch}
-.p-head .q b{font-weight:600}
-.phase{color:var(--accent)}
+/* exhibit: video */
+.exhibit{margin-top:22px;border:1px solid var(--ink)}
+.exhibit .cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;padding:6px 10px;border-bottom:1px solid var(--ink);background:var(--shade)}
+.exhibit .cap b{font-weight:700}
+.exhibit video{display:block;width:100%;aspect-ratio:16/9;background:#15233f;max-width:100%}
+.chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));border-top:1px solid var(--ink)}
+.chapters button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:baseline;padding:7px 10px;font-size:13.5px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.chapters button span{color:var(--pencil);font-size:12.5px;min-width:2.6em}
+.chapters button:hover{background:var(--shade)}
+.chapters button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.chapters button[aria-current="true"]{background:var(--ink);color:#fff}
+.chapters button[aria-current="true"] span{color:#c9d2e6}
+.two-ex{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.two-ex .exhibit .chapters{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 
-.player{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.player video{display:block;width:100%;aspect-ratio:16/9;background:#0b1f3a;max-width:100%}
-.chapters{display:flex;flex-wrap:wrap;gap:6px;padding:12px;border-top:1px solid var(--line)}
-.chapters button{font:500 13px/1.2 var(--body);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer;display:flex;gap:8px;align-items:center}
-.chapters button span{font:400 12px var(--mono);color:var(--muted)}
-.chapters button:hover{border-color:var(--accent)}
-.chapters button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
-.chapters button[aria-current="true"] span{color:var(--bg);opacity:.8}
-.vid-title{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px 0}
-.vid-title b{font-weight:600;font-size:15px}
-.two-vids{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+/* ruled tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:4px}
+.tbl th{text-align:left;font-weight:700;font-size:12.5px;color:var(--pencil);border-bottom:1px solid var(--ink);padding:6px 10px 5px 0}
+.tbl td{vertical-align:top;border-bottom:1px solid var(--hair);padding:8px 10px 8px 0}
+.tbl td:first-child{font-weight:700;white-space:nowrap;padding-right:18px}
+.tbl tr:last-child td{border-bottom:1px solid var(--rule)}
+.tbl-wrap{overflow-x:auto}
 
-.detail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:36px}
-.detail h3{font:600 15px/1.3 var(--body);margin-bottom:10px}
-.detail ul{margin:0;padding-left:18px;color:var(--muted)}
-.detail li{margin-bottom:6px}
-.detail li b{color:var(--ink);font-weight:600}
-.stack{display:flex;flex-wrap:wrap;gap:6px}
-.stack span{font:500 12px/1 var(--mono);border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:6px 8px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;margin-top:30px}
+.block{min-width:0}
+.block ul{margin:0;padding-left:18px}
+.block li{margin-bottom:6px}
+.block p + p,.block p + ul,.block ul + p{margin-top:10px}
+.note{font-size:14px;color:var(--pencil)}
+.built{font-size:14px;margin-top:12px}
+.built b{font-weight:700}
 
-dl.glossary{margin:0;display:grid;gap:10px}
-dl.glossary dt{font:500 13px var(--mono);color:var(--ink)}
-dl.glossary dd{margin:0;color:var(--muted);font-size:14px}
+/* weights chart */
+.weights{margin:14px 0 0;display:grid;gap:5px}
+.wrow{display:grid;grid-template-columns:100px minmax(0,1fr) 42px;align-items:center;gap:10px;font-size:13.5px}
+.wrow i{display:block;height:9px;width:calc(var(--w) * 2.6);max-width:100%;min-width:1px;background:var(--blue)}
+.wrow b{font-weight:600;text-align:right;color:var(--pencil)}
+.weights figcaption{font-size:12.5px;color:var(--pencil);margin-bottom:2px}
 
-.reports{margin-top:36px}
-.reports .r-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.reports .r-head h3{font:600 15px/1.3 var(--body)}
-.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.thumb{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px;cursor:zoom-in;text-align:left;font:inherit;color:inherit;display:flex;flex-direction:column;gap:8px}
-.thumb img{display:block;width:100%;aspect-ratio:8.5/11;object-fit:cover;object-position:top;border-radius:3px;background:#fff}
-.thumb span{font-size:12.5px;line-height:1.35;color:var(--muted)}
-.thumb:hover{border-color:var(--accent)}
+dl.defs{margin:0}
+dl.defs div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;padding-block:7px;border-bottom:1px solid var(--hair)}
+dl.defs dt{font-weight:700}
+dl.defs dd{margin:0;color:var(--ink)}
 
-.feature-report{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:36px;align-items:start}
-.feature-report .thumb{padding:10px}
+/* attachments */
+.attach{margin-top:30px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:14px}
+.thumb{all:unset;cursor:zoom-in;display:grid;gap:6px;font-size:12.5px;color:var(--pencil);line-height:1.35}
+.thumb img{display:block;width:100%;aspect-ratio:8.5/11;object-fit:cover;object-position:top;border:1px solid var(--rule);box-shadow:2px 2px 0 var(--hair);background:#fff}
+.thumb:hover img{border-color:var(--ink)}
+.thumb:focus-visible img{outline:2px solid var(--blue);outline-offset:2px}
+.feature{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;margin-top:26px;align-items:start}
+.feature .thumb img{aspect-ratio:auto}
 
-/* about */
-.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;padding-block:64px;border-bottom:1px solid var(--line)}
-.about h2,.contact h2{font-size:clamp(36px,5vw,56px);text-transform:uppercase;margin:10px 0 20px}
-.about p{color:var(--muted);max-width:60ch;margin:0 0 14px}
-.about p b{color:var(--ink);font-weight:600}
-.cv{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.cv li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding-block:14px;border-top:1px solid var(--line)}
-.cv li:last-child{border-bottom:1px solid var(--line)}
-.cv .what b{display:block;font-weight:600}
-.cv .what span{color:var(--muted);font-size:14px}
-.note{margin-top:20px;padding:14px 16px;background:var(--accent-soft);border-radius:8px;font-size:14px;color:var(--ink)}
+/* background */
+.jobs{list-style:none;margin:0;padding:0}
+.jobs > li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding-block:14px;border-bottom:1px solid var(--hair)}
+.jobs > li:first-child{padding-top:4px}
+.jobs .when{font-size:13.5px;color:var(--pencil);padding-top:2px}
+.jobs h3{font-size:16px;font-weight:700}
+.jobs .org{color:var(--blue);font-weight:600;font-size:14.5px}
+.jobs ul{margin:8px 0 0;padding-left:18px}
+.jobs ul li{margin-bottom:4px}
 
-.contact{padding-block:64px 80px;display:flex;flex-direction:column;align-items:flex-start}
-.contact p{color:var(--muted);max-width:56ch;margin:0 0 20px}
-.email{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.email code{font:500 clamp(17px,2.6vw,24px)/1.2 var(--mono);user-select:all;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;word-break:break-all}
-.btn{font:600 14px var(--body);background:var(--accent);color:var(--bg);border:0;border-radius:6px;padding:13px 16px;cursor:pointer}
-.foot{padding-block:24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.resume{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:start}
+.resume .thumb img{aspect-ratio:8.5/11}
+.btn{all:unset;cursor:pointer;display:inline-block;background:var(--ink);color:#fff;font-weight:700;font-size:14px;padding:9px 14px;text-decoration:none}
+.btn:hover{background:var(--blue)}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.btn.ghost:hover{background:var(--shade)}
+.dl-msg{font-size:13px;color:var(--pencil);min-height:1em;margin-top:6px}
 
-.model-lede{margin:0 0 10px;font-size:14.5px}
-.detail .model-val{font-size:13.5px;color:var(--muted);margin:12px 0 0}
-.weights{margin:14px 0 0;display:grid;gap:6px}
-.weights figcaption{margin-bottom:4px}
-.wrow{display:grid;grid-template-columns:96px minmax(0,1fr) 40px;align-items:center;gap:10px;font-size:13px}
-.wrow span{color:var(--ink)}
-.wrow i{display:block;height:10px;width:calc(var(--w) * 2.6);max-width:100%;min-width:2px;background:var(--accent);border-radius:0 4px 4px 0}
-.wrow b{font:500 12px var(--mono);color:var(--muted);text-align:right}
-.facts-list{list-style:none;padding:0!important;margin:0 0 14px!important;display:grid;gap:8px}
-.facts-list li{font-size:14px;color:var(--muted);padding-left:0}
-.facts-list b{color:var(--ink);font:600 15px var(--body)}
-.note-sm{font-size:13.5px;color:var(--muted);margin:14px 0 0}
-/* experience */
-.xp{padding-block:64px;border-bottom:1px solid var(--line)}
-.xp-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:32px}
-.xp-head h2{font-size:clamp(40px,5.5vw,64px);text-transform:uppercase;margin-top:10px}
-.xp-head .q{font-size:19px;line-height:1.5;margin:0;max-width:52ch}
-.xp-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:start}
-.jobs{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.jobs > li{padding-block:22px;border-top:1px solid var(--line)}
-.jobs > li:first-child{padding-top:0;border-top:0}
-.job-top{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;align-items:baseline;margin-bottom:10px}
-.job-top h3{font:600 18px/1.3 var(--body)}
-.org{color:var(--accent);font-weight:500;font-size:15px}
-.jobs ul{margin:0;padding-left:18px;color:var(--muted)}
-.jobs ul li{margin-bottom:6px}
-.side{display:grid;gap:32px}
-.side-h{font:600 15px/1.3 var(--body);margin-bottom:10px}
-.resume-card{display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
-.resume-card .thumb{border:0;padding:0;background:transparent}
-.resume-card .thumb img{aspect-ratio:8.5/6;border:1px solid var(--line)}
-.dl-msg{margin:0;font-size:13px;color:var(--muted);min-height:1em}
-dl.skills{margin:0;display:grid;grid-template-columns:90px minmax(0,1fr);gap:10px 16px}
-dl.skills dt{font:500 12px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-dl.skills dd{margin:0;font-size:14.5px}
-.xp .note{margin-top:36px}
-.btn-sm{padding:8px 12px;font-size:13px}
-.btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-.top nav{align-items:center}
-@media (max-width:860px){.xp-head,.xp-grid{grid-template-columns:minmax(0,1fr)}.xp{padding-block:44px}.xp-grid{gap:36px}}
+.signoff{margin-top:56px;border-top:3px double var(--ink);padding-top:16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end}
+.signoff p{max-width:58ch}
+.email{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.email code{font:700 20px/1.2 var(--face);user-select:all;border-bottom:2px solid var(--ink);padding-bottom:2px;word-break:break-all}
+.foot{max-width:940px;margin:14px auto 0;font-size:12.5px;color:#6b7280;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
 /* lightbox */
+.lb{position:fixed;inset:0;background:rgba(21,35,63,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));z-index:50}
 .lb[hidden]{display:none}
-.lb{position:fixed;inset:0;background:rgba(11,31,58,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));z-index:50}
-.lb img{max-width:min(900px,100%);max-height:calc(100% - 70px);object-fit:contain;background:#fff;border-radius:4px}
-.lb .bar{display:flex;gap:10px;align-items:center;color:#ffffff;font-size:14px;flex-wrap:wrap;justify-content:center}
-.lb button{font:600 14px var(--body);background:#ffffff;color:#0b1f3a;border:0;border-radius:6px;padding:9px 14px;cursor:pointer}
+.lb img{max-width:min(900px,100%);max-height:calc(100% - 70px);object-fit:contain;background:#fff}
+.lb .bar{display:flex;gap:10px;align-items:center;color:#fff;font-size:14px;flex-wrap:wrap;justify-content:center}
+.lb button{all:unset;cursor:pointer;font-weight:700;font-size:14px;background:#fff;color:var(--ink);padding:8px 13px}
+.lb button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 
-@media (max-width:860px){
-  .hero,.p-head,.about,.feature-report{grid-template-columns:minmax(0,1fr)}
-  .hero{gap:32px;padding-block:36px 44px}
-  .detail{grid-template-columns:minmax(0,1fr);gap:24px}
-  .day{grid-template-columns:minmax(0,1fr)}
-  .day a,.day a + a{padding:16px 0;border-left:0}
-  .day a + a{border-top:1px solid var(--line)}
-  .project,.about{padding-block:44px}
-  .cv li{grid-template-columns:minmax(0,1fr);gap:4px}
-}
-
-.tabcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:28px}
-.tabcard{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.tabcard h3{font:700 14.5px/1.3 var(--body);letter-spacing:-.01em;margin:0 0 6px;color:var(--ink)}
-.tabcard p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
-.detail.detail-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-@media (max-width:860px){.detail.detail-2{grid-template-columns:minmax(0,1fr)}}
-/* ---- App theme overrides ---- */
-body{font-size:15px;padding-inline:20px}
-h1,h2,h3{font-family:var(--body);letter-spacing:-.02em;text-transform:none!important}
-.label{font:600 11px/1.3 var(--body);letter-spacing:.08em;color:var(--faint)}
-.phase{color:var(--accent)}
-.appbar{background:var(--navy);margin-inline:-20px;padding-inline:20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
-.appbar .top{max-width:1160px;margin:0 auto;border:0;padding-block:12px}
-.brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:#fff}
-.brand .logo{width:34px;height:34px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center;font:800 13px var(--body);letter-spacing:.02em}
-.brand b{display:block;font:700 16px/1.15 var(--body)}
-.brand small{display:block;font:400 11.5px/1.2 var(--body);color:rgba(255,255,255,.6)}
-.top nav{gap:4px}
-.top nav a{color:rgba(255,255,255,.72);padding:7px 11px;border-radius:7px;font-weight:600;font-size:13.5px}
-.top nav a:hover{color:#fff;background:rgba(255,255,255,.1)}
-.btn{border-radius:8px;background:var(--accent);color:#fff}
-.btn-ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
-
-.hero{margin-top:24px;padding:40px;border-radius:14px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;
-  --ink:#ffffff;--muted:rgba(255,255,255,.72);--faint:rgba(255,255,255,.55);--line:rgba(255,255,255,.2);--field:rgba(255,255,255,.06);--surface:rgba(255,255,255,.06);
-  --r-blue:#6aa8f0;--r-orange:#f2894e;--r-green:#3fd39a;--accent:#6aa8f0}
-.hero h1{font-size:clamp(36px,5.2vw,60px);font-weight:800;line-height:1.05;margin-block:12px 18px}
-.hero p{font-size:16.5px}
-.hero .facts{gap:10px}
-.hero .facts li{background:rgba(255,255,255,.08);border-radius:999px;padding:6px 14px;flex-direction:row;align-items:baseline;gap:8px}
-.hero .facts b{font-size:13.5px;font-weight:600}
-.diagram{border-color:rgba(255,255,255,.14)}
-
-.day{border:0;gap:12px;margin-block:20px 8px}
-.day a,.day a + a{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.day a:hover{border-color:var(--accent)}
-.day strong{font:800 22px/1.1 var(--body);letter-spacing:-.02em;text-transform:none}
-
-.project,.xp{border-bottom:0;padding-block:28px}
-.project > *, .xp > *{position:relative}
-.project,.xp{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:36px;margin-top:24px}
-.p-head h2,.xp-head h2{font-size:clamp(32px,4.4vw,48px);font-weight:800;margin-top:8px}
-.p-head .q,.xp-head .q{font-size:17px;color:var(--muted)}
-.p-head .q b{color:var(--ink)}
-.player{border-radius:12px;background:var(--bg)}
-.chapters{background:var(--surface)}
-.chapters button{border-color:var(--line);background:var(--chip);border-color:transparent;font-weight:600}
-.chapters button span{font:600 11.5px var(--body);color:var(--faint)}
-.chapters button[aria-current="true"]{background:var(--accent);color:#fff}
-.chapters button[aria-current="true"] span{color:#fff}
-.vid-title{background:var(--surface);padding-bottom:12px;margin:0}
-.player video{margin-top:0!important}
-.stack span{font:600 12px/1 var(--body);background:var(--chip);border:0;border-radius:999px;padding:7px 11px;color:var(--ink)}
-.thumb{background:var(--bg);border-color:var(--line);border-radius:10px}
-.detail h3,.reports .r-head h3,.side-h{font-weight:700;font-size:15px;letter-spacing:-.01em}
-dl.glossary dt{font:700 13px var(--body);color:var(--ink)}
-dl.skills dt{font:600 11px/1.7 var(--body)}
-.wrow i{background:var(--accent)}
-.wrow b{font:600 12px var(--body)}
-.resume-card{background:var(--bg);border-radius:12px}
-.note{background:var(--accent-soft);color:var(--navy);border-radius:10px}
-.org{color:var(--accent);font-weight:600}
-.contact{margin-top:24px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);border-radius:14px;padding:40px;color:#fff}
-.contact h2{font-size:clamp(32px,4.4vw,48px);font-weight:800}
-.contact p{color:rgba(255,255,255,.72)}
-.contact .label{color:rgba(255,255,255,.55)}
-.email code{font:600 clamp(16px,2.4vw,22px)/1.2 var(--body);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff}
-.contact .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
-.foot{border-top:0;text-align:left}
-@media (max-width:860px){
-  .hero,.contact{padding:24px}
-  .project,.xp{padding:22px}
-  .day a,.day a + a{padding:16px 18px;border:1px solid var(--line)}
-  .day a + a{border-top:1px solid var(--line)}
-  .top nav a{padding:6px 8px;font-size:13px}
-  .appbar{position:static}
+@media (max-width:760px){
+  body{padding:0}
+  .sheet{padding:22px 18px 36px;box-shadow:none}
+  .title{grid-template-columns:minmax(0,1fr)}
+  .title .stamp{text-align:left}
+  .form{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .summary,.cols,.feature,.two-ex{grid-template-columns:minmax(0,1fr)}
+  .rhead .no{font-size:44px}
+  .rhead{align-items:center}
+  .jobs > li,.resume{grid-template-columns:minmax(0,1fr);gap:4px}
+  dl.defs div{grid-template-columns:minmax(0,1fr);gap:2px}
+  .signoff{grid-template-columns:minmax(0,1fr)}
+  .foot{padding-inline:18px}
+  .tbl td:first-child{white-space:normal;padding-right:10px;width:30%}
+  .tbl td{overflow-wrap:anywhere}
 }
 </style>
 </head>
 <body>
 
 
-<div class="appbar">
-<header class="top">
-    <a class="brand" href="#"><span class="logo">CM</span><span><b>Cael Magill</b><small>Hitting · Player development technology</small></span></a>
+<main class="sheet">
+  <header class="runhead">
+    <span>Cael Magill, portfolio, October 2026</span>
     <nav aria-label="Sections">
       <a href="#pitcher-prep">Pitcher Advance</a>
       <a href="#baserunning">Baserunning Review</a>
       <a href="#gamedata">GameData Pro</a>
-      <a href="#about">Experience</a>
+      <a href="#about">Background</a>
       <a href="#contact">Contact</a>
-      <a class="btn btn-sm dl-resume" href="resume/Cael_Magill_Resume.pdf" download>Resume</a>
     </nav>
   </header>
-</div>
-<div class="wrap">
 
-  <section class="hero">
+  <section class="title" aria-label="Report header">
     <div>
-      <span class="label">Hitting · Player development technology</span>
-      <h1>I coach hitters and <em>build</em> the tools they use.</h1>
-      <p>I'm a Minor League Technology Apprentice with the Houston Astros. I'm in uniform with the FCL Astros, where I run hitter and catcher early work, coach first base on the road and go over opposing-pitcher reports with hitters in the dugout. I also build the apps behind that work using TrackMan, Hawk-Eye and MLB data. Below are three of them, with a screen recording of each one and the reports they export.</p>
-      <ul class="facts">
-        <li><span class="label">Currently</span><b>Houston Astros · since Feb 2026</b></li>
-        <li><span class="label">Build</span><b>R/Shiny · JavaScript · Python · SQL</b></li>
-        <li><span class="label">Tracking</span><b>Hawk-Eye · TrackMan · Blast · Edgertronic</b></li>
-      </ul>
+      <div class="kind">ADVANCE REPORT</div>
+      <h1>Cael Magill</h1>
     </div>
-    <figure class="diagram" style="margin:0">
-      <svg viewBox="0 0 400 360" role="img" aria-label="Overhead route trace of three runners on a single: batter to first, runner from first to second, runner from second scoring">
-        <path d="M60 230 A 200 200 0 0 1 340 230" fill="none" stroke="var(--line)" stroke-width="1.5"/>
-        <line x1="200" y1="330" x2="30" y2="160" stroke="var(--line)" stroke-width="1.5"/>
-        <line x1="200" y1="330" x2="370" y2="160" stroke="var(--line)" stroke-width="1.5"/>
-        <path d="M200 330 L300 230 L200 130 L100 230 Z" fill="var(--field)" stroke="var(--muted)" stroke-width="1.2"/>
-        <circle cx="200" cy="232" r="14" fill="none" stroke="var(--muted)" stroke-width="1"/>
-        <circle cx="200" cy="330" r="22" fill="none" stroke="var(--muted)" stroke-width="1"/>
-        <g fill="var(--surface)" stroke="var(--muted)" stroke-width="1.2">
+    <div class="stamp">Prepared by C. Magill<br>October 2026</div>
+  </section>
+
+  <div class="form" role="group" aria-label="Summary fields">
+    <div class="wide"><small>Position</small><b>Hitting coach, player development technology</b></div>
+    <div><small>Organization</small><b>Houston Astros</b></div>
+    <div><small>Assignment</small><b>FCL Astros, since Feb 2026</b></div>
+    <div><small>Builds in</small><b>R/Shiny, JavaScript, Python, SQL</b></div>
+    <div><small>Tracking</small><b>Hawk-Eye, TrackMan, Blast, Edgertronic</b></div>
+    <div><small>On the field</small><b>BP, fungos, catchers, 1B coach</b></div>
+    <div><small>Education</small><b>MBA, Eastern (Dec 2026)</b></div>
+  </div>
+
+  <div class="summary">
+    <div>
+      <h2>Summary</h2>
+      <p>I coach hitters and build the tools they use. With the Houston Astros I'm in uniform with the FCL Astros, where I run hitter and catcher early work, coach first base on the road and go over opposing-pitcher reports with hitters in the dugout.</p>
+      <p>I also build the apps behind that work using TrackMan, Hawk-Eye and MLB data. This packet covers three of them, in the order they get used on a game day, with a screen recording of each one and the reports they export.</p>
+      <ol class="contents">
+        <li><a href="#pitcher-prep"><span class="no">1</span><span class="nm">Pitcher Advance</span><span class="lead"></span><span class="when">before first pitch</span></a></li>
+        <li><a href="#baserunning"><span class="no">2</span><span class="nm">Baserunning Review</span><span class="lead"></span><span class="when">reviewing the play</span></a></li>
+        <li><a href="#gamedata"><span class="no">3</span><span class="nm">GameData Pro</span><span class="lead"></span><span class="when">the morning after</span></a></li>
+        <li><a href="#about"><span class="no">4</span><span class="nm">Background and resume</span><span class="lead"></span><span class="when">experience</span></a></li>
+      </ol>
+    </div>
+    <figure class="fig" style="margin:0">
+      <svg viewBox="0 0 400 350" role="img" aria-label="Overhead route trace of three runners on a single: batter to first, runner from first to second, runner from second scoring">
+        <path d="M60 230 A 200 200 0 0 1 340 230" fill="none" stroke="#c7ccd4" stroke-width="1.2"/>
+        <line x1="200" y1="330" x2="30" y2="160" stroke="#c7ccd4" stroke-width="1.2"/>
+        <line x1="200" y1="330" x2="370" y2="160" stroke="#c7ccd4" stroke-width="1.2"/>
+        <path d="M200 330 L300 230 L200 130 L100 230 Z" fill="#f3f5f8" stroke="#5b6474" stroke-width="1"/>
+        <circle cx="200" cy="232" r="14" fill="none" stroke="#5b6474" stroke-width=".8"/>
+        <circle cx="200" cy="330" r="22" fill="none" stroke="#5b6474" stroke-width=".8"/>
+        <g fill="#ffffff" stroke="#5b6474" stroke-width="1">
           <rect x="294" y="224" width="12" height="12" transform="rotate(45 300 230)"/>
           <rect x="194" y="124" width="12" height="12" transform="rotate(45 200 130)"/>
           <rect x="94" y="224" width="12" height="12" transform="rotate(45 100 230)"/>
         </g>
-        <g font-family="Inter, system-ui, sans-serif" font-size="11" fill="var(--muted)">
-          <text x="318" y="234">1B</text><text x="193" y="112">2B</text><text x="66" y="234">3B</text><text x="196" y="352">H</text>
+        <g font-family="Libre Franklin, Arial, sans-serif" font-size="11" fill="#5b6474">
+          <text x="318" y="234">1B</text><text x="193" y="113">2B</text><text x="66" y="234">3B</text><text x="196" y="348">H</text>
         </g>
-        <path class="route g" style="--len:420" stroke="var(--r-green)" d="M184 140 C 150 168, 112 198, 101 232 C 94 262, 150 302, 196 328 C 210 336, 226 340, 238 343"/>
-        <path class="route o" style="--len:160" stroke="var(--r-orange)" d="M284 214 C 262 184, 232 146, 202 129"/>
-        <path class="route b" style="--len:200" stroke="var(--r-blue)" d="M198 328 C 236 296, 278 268, 298 236 C 306 222, 300 214, 293 224"/>
-        <g font-family="Inter, system-ui, sans-serif" font-size="10.5">
-          <text x="300" y="300" fill="var(--r-blue)">+2.3 ft</text>
-          <text x="252" y="160" fill="var(--r-orange)">+0.9 ft</text>
-          <text x="40" y="290" fill="var(--r-green)">+5.2 ft</text>
+        <path class="route g" style="--len:420" stroke="#1d7a4c" d="M184 140 C 150 168, 112 198, 101 232 C 94 262, 150 302, 196 328 C 210 336, 226 340, 238 343"/>
+        <path class="route o" style="--len:160" stroke="#b42318" d="M284 214 C 262 184, 232 146, 202 129"/>
+        <path class="route b" style="--len:200" stroke="#1f3f99" d="M198 328 C 236 296, 278 268, 298 236 C 306 222, 300 214, 293 224"/>
+        <g font-family="Libre Franklin, Arial, sans-serif" font-size="11" font-weight="600">
+          <text x="300" y="300" fill="#1f3f99">+2.3 ft</text>
+          <text x="252" y="160" fill="#b42318">+0.9 ft</text>
+          <text x="40" y="290" fill="#1d7a4c">+5.2 ft</text>
         </g>
       </svg>
-      <figcaption class="cap">
-        <div class="legend"><span><i style="background:var(--r-blue)"></i>Diaz H→1B</span><span><i style="background:var(--r-orange)"></i>Trammell 1B→2B</span><span><i style="background:var(--r-green)"></i>Altuve 2B→H</span></div>
-        <span class="label">Bot 4 · Aug 5, 2026 · added feet</span>
+      <figcaption><b>Fig. 1</b> Route trace from Baserunning Review, TOR at HOU, Aug 5, 2026, bottom 4th. Numbers are added feet over the shortest legal path.
+        <span class="key"><span><i style="background:#1f3f99"></i>Diaz, home to 1B</span><span><i style="background:#b42318"></i>Trammell, 1B to 2B</span><span><i style="background:#1d7a4c"></i>Altuve, 2B to home</span></span>
       </figcaption>
     </figure>
-  </section>
-
-  <div class="day" aria-label="Tools by part of the game day">
-    <a href="#pitcher-prep"><span class="label phase">Before first pitch</span><strong>Pitcher Advance</strong><span>Scouting the opposing starter</span></a>
-    <a href="#baserunning"><span class="label phase">Reviewing the play</span><strong>Baserunning Review</strong><span>Every runner's route, lead and speed</span></a>
-    <a href="#gamedata"><span class="label phase">The morning after</span><strong>GameData Pro</strong><span>Post-game, pitcher and hitter reports</span></a>
   </div>
 
-  <!-- PITCHER PREP -->
-  <section class="project" id="pitcher-prep">
-    <div class="p-head">
-      <div><span class="label phase">Before first pitch · Advance scouting</span><h2>Pitcher Advance</h2></div>
-      <p class="q"><b>Built to get hitters ready for the opposing starter.</b> Pick any MLB pitcher, split him by batter side and go tab by tab: how he attacks, how he sequences, how his pitches tunnel, his release and approach angles, how he holds up deep in games, a video playlist and a printable game plan for the hitters.</p>
+  <!-- 1. PITCHER ADVANCE -->
+  <section class="report" id="pitcher-prep">
+    <div class="rhead">
+      <div class="no">1</div>
+      <div><h2>Pitcher Advance</h2><p>Before first pitch. Advance scouting on the opposing starter.</p></div>
     </div>
+    <p class="lede">Built to get hitters ready for the opposing starter. Pick any MLB pitcher, split him by batter side and go tab by tab: how he attacks, how he sequences, how his pitches tunnel, his release and approach angles, how he holds up deep in games, a video playlist and a printable game plan for the hitters.</p>
 
-    <div class="player" data-player>
+    <div class="exhibit" data-player>
+      <div class="cap"><b>Exhibit 1A. Screen recording</b><span>2:39, no audio</span></div>
       <video src="media/pa2.mp4" poster="media/pa2.jpg" controls muted playsinline preload="metadata"></video>
       <div class="chapters">
-        <button data-t="0"><span>0:00</span>Overview &amp; scouting takeaways</button>
+        <button data-t="0"><span>0:00</span>Overview</button>
         <button data-t="16"><span>0:16</span>Switch pitcher</button>
         <button data-t="33"><span>0:33</span>How he attacks</button>
         <button data-t="46"><span>0:46</span>Sequencing</button>
@@ -357,154 +292,149 @@ dl.skills dt{font:600 11px/1.7 var(--body)}
         <button data-t="90"><span>1:30</span>Release</button>
         <button data-t="98"><span>1:38</span>Approach angles</button>
         <button data-t="105"><span>1:45</span>Fatigue</button>
-        <button data-t="113"><span>1:53</span>Trends &amp; game log</button>
+        <button data-t="113"><span>1:53</span>Trends and game log</button>
         <button data-t="120"><span>2:00</span>Clip playlist</button>
         <button data-t="151"><span>2:31</span>Game plan</button>
       </div>
     </div>
 
-    <div class="tabcards">
-      <div class="tabcard"><h3>Overview</h3><p>Scouting takeaways written automatically: his best pitch with its score and rank, his two-strike pitch, first-pitch mix and his put-away pitch. KPI tiles and an arsenal table shaded against league average.</p></div>
-      <div class="tabcard"><h3>How he attacks</h3><p>Pitch mix in every count, plus location heat maps and a 13-zone grid filtered by pitch and outcome.</p></div>
-      <div class="tabcard"><h3>Sequencing</h3><p>What he throws next after each pitch, by count, and which pitch pairs get extra whiffs. For example, McLean's cutter after a sinker gets 32% whiffs vs. 18% normally.</p></div>
-      <div class="tabcard"><h3>Tunneling</h3><p>Each pitch's average flight from release to the plate, from behind the plate or either batter's box, with the gaps at release, at the commit point and at the plate.</p></div>
-      <div class="tabcard"><h3>Tunnel video</h3><p>Two real pitches side by side, or stacked on top of each other and lined up on release, so you can see where they stay together and where they split.</p></div>
-      <div class="tabcard"><h3>Release</h3><p>Release points and how consistent each pitch is, ranked against MLB, plus possible tells. For example, his slider comes out 4.1 inches to the side of his sinker.</p></div>
-      <div class="tabcard"><h3>Approach</h3><p>Vertical and horizontal approach angles compared with what's expected for his location and velo, a “plays like” velo for fastballs, a grade for each pitch and where in the zone it plays up.</p></div>
-      <div class="tabcard"><h3>Fatigue</h3><p>Velo, spin, movement, whiff% and CSW% by pitch count in the outing, plus how hitters do the first, second and third time through the order.</p></div>
-      <div class="tabcard"><h3>Trends</h3><p>Velo and pitch usage by outing over the season, and a game log joined to the pitch data.</p></div>
-      <div class="tabcard"><h3>Clips</h3><p>Build a video playlist of any pitch filtered by count, result and location. For example, every two-strike four-seam whiff, newest first.</p></div>
-      <div class="tabcard"><h3>Game plan</h3><p>A printable one-page plan for hitters: what to take on the first pitch, what to sit on in hitter's counts, what to lay off, how to handle two strikes and where to do damage, with heat maps.</p></div>
-      <div class="tabcard"><h3>Matchup & Leaderboard</h3><p>Pitcher vs. a specific hitter with every plate appearance between them, and a leaderboard of the best pitches in baseball.</p></div>
+    <div class="cols" style="grid-template-columns:minmax(0,1fr)">
+      <div class="block">
+        <h3 class="sec-h">What each tab shows</h3>
+        <div class="tbl-wrap"><table class="tbl">
+          <thead><tr><th>Tab</th><th>What it shows</th></tr></thead>
+          <tbody>
+            <tr><td>Overview</td><td>Scouting takeaways written automatically: his best pitch with its score and rank, his two-strike pitch, first-pitch mix and his put-away pitch. KPI tiles and an arsenal table shaded against league average.</td></tr>
+            <tr><td>How he attacks</td><td>Pitch mix in every count, plus location heat maps and a 13-zone grid filtered by pitch and outcome.</td></tr>
+            <tr><td>Sequencing</td><td>What he throws next after each pitch, by count, and which pitch pairs get extra whiffs. McLean's cutter after a sinker gets 32% whiffs vs. 18% normally.</td></tr>
+            <tr><td>Tunneling</td><td>Each pitch's average flight from release to the plate, from behind the plate or either batter's box, with the gaps at release, at the commit point and at the plate.</td></tr>
+            <tr><td>Tunnel video</td><td>Two real pitches side by side, or stacked on top of each other and lined up on release, so you can see where they stay together and where they split.</td></tr>
+            <tr><td>Release</td><td>Release points and how consistent each pitch is, ranked against MLB, plus possible tells. His slider comes out 4.1 inches to the side of his sinker.</td></tr>
+            <tr><td>Approach</td><td>Vertical and horizontal approach angles compared with what's expected for his location and velo, a "plays like" velo for fastballs, a grade for each pitch and where in the zone it plays up.</td></tr>
+            <tr><td>Fatigue</td><td>Velo, spin, movement, whiff% and CSW% by pitch count in the outing, plus how hitters do the first, second and third time through the order.</td></tr>
+            <tr><td>Trends</td><td>Velo and pitch usage by outing over the season, and a game log joined to the pitch data.</td></tr>
+            <tr><td>Clips</td><td>A video playlist of any pitch, filtered by count, result and location. For example, every two-strike four-seam whiff, newest first.</td></tr>
+            <tr><td>Game plan</td><td>A printable one-page plan for hitters: what to take on the first pitch, what to sit on in hitter's counts, what to lay off, how to handle two strikes and where to do damage, with heat maps.</td></tr>
+            <tr><td>Matchup</td><td>Pitcher vs. a specific hitter, with every plate appearance between them.</td></tr>
+            <tr><td>Leaderboard</td><td>The best pitches in baseball by pitch score, filterable by pitch type and handedness.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </div>
 
-    <div class="detail detail-2">
-      <div>
-        <h3>The pitch score model</h3>
-        <p class="model-lede">I built a score for every 2026 pitch type with at least 300 pitches and 40 batted balls. 100 is average and every 10 points is one standard deviation.</p>
-        <ul>
+    <div class="cols">
+      <div class="block">
+        <h3 class="sec-h">The pitch score model</h3>
+        <p>I built a score for every 2026 pitch type with at least 300 pitches and 40 batted balls. 100 is average and every 10 points is one standard deviation.</p>
+        <ul style="margin-top:10px">
           <li>It combines seven pieces: whiff %, chase %, called-strike %, run value per 100 pitches, xwOBA and xSLG on contact, and a stuff grade.</li>
           <li>Small samples get pulled toward the league average for that pitch type.</li>
           <li>The stuff grade measures how different a pitch's movement is from what you'd expect given its velo, extension and arm angle.</li>
           <li>The weights come from the data. A non-negative ridge regression uses one half of a pitcher's games to predict his run value in the other half, cross-validated by pitcher.</li>
         </ul>
-        <figure class="weights" aria-label="Learned component weights">
-          <figcaption class="label">Learned weights</figcaption>
-          <div class="wrow" title="Whiff: 0.320"><span>Whiff</span><i style="--w:32%"></i><b class="num">.320</b></div>
-          <div class="wrow" title="Chase: 0.287"><span>Chase</span><i style="--w:28.7%"></i><b class="num">.287</b></div>
-          <div class="wrow" title="Called strike: 0.162"><span>Called strike</span><i style="--w:16.2%"></i><b class="num">.162</b></div>
-          <div class="wrow" title="Stuff: 0.108"><span>Stuff</span><i style="--w:10.8%"></i><b class="num">.108</b></div>
-          <div class="wrow" title="Run value/100: 0.067"><span>RV/100</span><i style="--w:6.7%"></i><b class="num">.067</b></div>
-          <div class="wrow" title="xSLG on contact: 0.055"><span>xSLGcon</span><i style="--w:5.5%"></i><b class="num">.055</b></div>
-          <div class="wrow" title="xwOBA on contact: 0.000"><span>xwOBAcon</span><i style="--w:0%"></i><b class="num">.000</b></div>
-        </figure>
-        <p class="model-val">On games the model didn't see, the score predicted run value better than run value itself did (r = .223, compared with .127 for RV/100 alone and .196 for the original hand-picked weights). Split-half reliability is .637.</p>
       </div>
-      <div>
-        <h3>Data &amp; build</h3>
-        <ul class="facts-list">
-          <li><b class="num">714,483</b> pitches from <b class="num">2,429</b> games, 99.9% matched between the MLB Stats API and Baseball Savant</li>
-          <li><b class="num">785</b> qualified pitcher–pitch combinations, ranked overall and split by batter side</li>
-        </ul>
-        <div class="stack"><span>R</span><span>Shiny + bslib modules</span><span>plotly</span><span>DT</span><span>ggplot2 + patchwork</span><span>glmnet</span><span>furrr (parallel)</span><span>httr2</span><span>MLB Stats API</span><span>Baseball Savant</span></div>
-        <p class="note-sm">The data pipeline saves every game feed and daily Savant file so nothing gets pulled twice, checks that the MLB and Savant data line up (match rate, velo correlation and pitch-type agreement) and retries failed requests. The one-pager is built entirely in ggplot2 and patchwork, tables included, and exports to PDF or PNG.</p>
-        <p class="label" style="margin-top:16px">Example shown: Nolan McLean, NYM, 2026 season</p>
+      <div class="block">
+        <h3 class="sec-h">Learned weights and results</h3>
+        <figure class="weights" aria-label="Learned component weights">
+          <div class="wrow" title="Whiff: 0.320"><span>Whiff</span><i style="--w:32%"></i><b>.320</b></div>
+          <div class="wrow" title="Chase: 0.287"><span>Chase</span><i style="--w:28.7%"></i><b>.287</b></div>
+          <div class="wrow" title="Called strike: 0.162"><span>Called strike</span><i style="--w:16.2%"></i><b>.162</b></div>
+          <div class="wrow" title="Stuff: 0.108"><span>Stuff</span><i style="--w:10.8%"></i><b>.108</b></div>
+          <div class="wrow" title="Run value/100: 0.067"><span>RV/100</span><i style="--w:6.7%"></i><b>.067</b></div>
+          <div class="wrow" title="xSLG on contact: 0.055"><span>xSLGcon</span><i style="--w:5.5%"></i><b>.055</b></div>
+          <div class="wrow" title="xwOBA on contact: 0.000"><span>xwOBAcon</span><i style="--w:0%"></i><b>.000</b></div>
+        </figure>
+        <p style="margin-top:12px">On games the model didn't see, the score predicted run value better than run value itself did (r = .223, compared with .127 for RV/100 alone and .196 for the original hand-picked weights). Split-half reliability is .637.</p>
+        <p class="note" style="margin-top:12px">Data: 714,483 pitches from 2,429 games, 99.9% matched between the MLB Stats API and Baseball Savant. 785 qualified pitcher-pitch combinations, ranked overall and by batter side. The pipeline saves every game feed and daily Savant file, checks that the two sources line up and retries failed requests.</p>
+        <p class="built"><b>Built with</b> R, Shiny and bslib, plotly, DT, ggplot2 and patchwork, glmnet, furrr, httr2, MLB Stats API and Baseball Savant.</p>
       </div>
     </div>
 
-    <div class="reports">
-      <div class="r-head"><h3>Exported one-pagers</h3><span class="label">Tap to enlarge</span></div>
+    <div class="attach">
+      <h3 class="sec-h">Attachments: exported one-pagers, Nolan McLean, 2026</h3>
       <div class="thumbs" data-set="pp">
-        <button class="thumb" data-src="reports/pa_all-1.webp" data-cap="Nolan McLean · 2026 · vs all hitters"><img src="reports/pa_all-1.webp" alt="Pitcher one-pager, Nolan McLean vs all hitters"><span>vs all hitters</span></button>
-        <button class="thumb" data-src="reports/pa_lhh-1.webp" data-cap="Nolan McLean · 2026 · vs left-handed hitters"><img src="reports/pa_lhh-1.webp" alt="Pitcher one-pager vs left-handed hitters"><span>vs LHH</span></button>
-        <button class="thumb" data-src="reports/pa_rhh-1.webp" data-cap="Nolan McLean · 2026 · vs right-handed hitters"><img src="reports/pa_rhh-1.webp" alt="Pitcher one-pager vs right-handed hitters"><span>vs RHH</span></button>
+        <button class="thumb" data-src="reports/pa_all-1.webp" data-cap="Nolan McLean, 2026, vs all hitters"><img src="reports/pa_all-1.webp" alt="Pitcher one-pager, Nolan McLean vs all hitters"><span>vs all hitters</span></button>
+        <button class="thumb" data-src="reports/pa_lhh-1.webp" data-cap="Nolan McLean, 2026, vs left-handed hitters"><img src="reports/pa_lhh-1.webp" alt="Pitcher one-pager vs left-handed hitters"><span>vs left-handed hitters</span></button>
+        <button class="thumb" data-src="reports/pa_rhh-1.webp" data-cap="Nolan McLean, 2026, vs right-handed hitters"><img src="reports/pa_rhh-1.webp" alt="Pitcher one-pager vs right-handed hitters"><span>vs right-handed hitters</span></button>
       </div>
     </div>
   </section>
 
-  <!-- BASERUNNING -->
-  <section class="project" id="baserunning">
-    <div class="p-head">
-      <div><span class="label phase">Reviewing the play · Hawk-Eye tracking</span><h2>Baserunning Review</h2></div>
-      <p class="q"><b>Built to grade baserunning off Hawk-Eye tracking.</b> Pick a game and a play, and the app replays every runner's path to scale next to the broadcast video. It measures his leads, his speed and how many extra feet he ran.</p>
+  <!-- 2. BASERUNNING -->
+  <section class="report" id="baserunning">
+    <div class="rhead">
+      <div class="no">2</div>
+      <div><h2>Baserunning Review</h2><p>Reviewing the play. Every runner's route, lead and speed from Hawk-Eye tracking.</p></div>
     </div>
+    <p class="lede">Built to grade baserunning off Hawk-Eye tracking. Pick a game and a play, and the app replays every runner's path to scale next to the broadcast video. It measures his leads, his speed and how many extra feet he ran.</p>
 
-    <div class="two-vids">
-      <div class="player" data-player>
-        <div class="vid-title"><b>Game Review</b><span class="label">1:33</span></div>
-        <video src="media/br_game.mp4" poster="media/br_game.jpg" controls muted playsinline preload="metadata" style="margin-top:12px"></video>
+    <div class="two-ex">
+      <div class="exhibit" data-player>
+        <div class="cap"><b>Exhibit 2A. Game review</b><span>1:33</span></div>
+        <video src="media/br_game.mp4" poster="media/br_game.jpg" controls muted playsinline preload="metadata"></video>
         <div class="chapters">
           <button data-t="0"><span>0:00</span>Pick a game</button>
           <button data-t="12"><span>0:12</span>Filter plays</button>
           <button data-t="18"><span>0:18</span>Route replay</button>
-          <button data-t="38"><span>0:38</span>All nine fielders + ball</button>
-          <button data-t="52"><span>0:52</span>Synced video angles</button>
+          <button data-t="38"><span>0:38</span>All nine fielders</button>
+          <button data-t="52"><span>0:52</span>Synced video</button>
           <button data-t="84"><span>1:24</span>Runner metrics</button>
         </div>
       </div>
-      <div class="player" data-player>
-        <div class="vid-title"><b>Leaderboard</b><span class="label">1:04</span></div>
-        <video src="media/br_lb.mp4" poster="media/br_lb.jpg" controls muted playsinline preload="metadata" style="margin-top:12px"></video>
+      <div class="exhibit" data-player>
+        <div class="cap"><b>Exhibit 2B. Leaderboard</b><span>1:04</span></div>
+        <video src="media/br_lb.mp4" poster="media/br_lb.jpg" controls muted playsinline preload="metadata"></video>
         <div class="chapters">
           <button data-t="0"><span>0:00</span>Build a query</button>
           <button data-t="20"><span>0:20</span>Choose columns</button>
-          <button data-t="40"><span>0:40</span>Filter by threshold</button>
-          <button data-t="50"><span>0:50</span>Open a play in Game Review</button>
+          <button data-t="40"><span>0:40</span>Set a minimum</button>
+          <button data-t="50"><span>0:50</span>Open a play</button>
         </div>
       </div>
     </div>
 
-    <div class="detail">
-      <div>
-        <h3>What it does</h3>
+    <div class="cols">
+      <div class="block">
+        <h3 class="sec-h">What it does</h3>
         <ul>
           <li><b>Play finder</b> for any game at six levels, from MLB down to Rookie ball. Filter by balls in play, stolen base attempts, extra bases taken or pitch by pitch. Steals are tied to the exact pitch they happened on.</li>
           <li><b>Route view</b> shows only the runners. <b>Play view</b> adds all nine fielders and the ball, which gets bigger the higher it goes. Both are drawn to scale from 30 frames-per-second tracking.</li>
-          <li><b>Synced video</b> from every available camera angle, in the best quality available.</li>
-          <li><b>Leaderboard</b> searches a full season by any of 20 running metrics, by play or by player, with filters. Clicking a row opens that play in the diagram.</li>
+          <li><b>Synced video</b> from every available camera angle.</li>
+          <li><b>Leaderboard</b> searches a full season by any of 20 running metrics, by play or by player. Clicking a row opens that play in the diagram.</li>
           <li><b>Exports</b> a one-page route PDF, a video of the diagram and a CSV of the leaderboard.</li>
         </ul>
+        <p class="built"><b>Built with</b> R, Shiny, httr2, a custom JavaScript canvas engine, jsPDF and MediaRecorder, on MLB Stats API and Hawk-Eye tracking. About 3,700 lines of R and 1,280 of JavaScript.</p>
       </div>
-      <div>
-        <h3>How the route is measured</h3>
-        <dl class="glossary">
-          <dt>Distance needed</dt><dd>The shortest legal path from where the runner started through every base he had to touch, with the bags placed where the rulebook puts them.</dd>
-          <dt>Added feet</dt><dd>The distance he actually ran minus the distance needed, measured on a smoothed path while he was moving. The path stops within 4 feet of his final bag, so a wide turn or a walk back isn't held against him.</dd>
-          <dt>PL / SL / TL</dt><dd>Primary lead at the windup, total lead at release and the ground he gained in between.</dd>
-          <dt>Derived first step, acceleration, top speed</dt><dd>Calculated from the tracking data for metrics MLB no longer publishes. Contact is marked at the ball's sharpest change in direction.</dd>
+      <div class="block">
+        <h3 class="sec-h">How the route is measured</h3>
+        <dl class="defs">
+          <div><dt>Distance needed</dt><dd>The shortest legal path from where the runner started through every base he had to touch, with the bags placed where the rulebook puts them.</dd></div>
+          <div><dt>Added feet</dt><dd>The distance he actually ran minus the distance needed, measured while he was moving. The path stops within 4 feet of his final bag, so a wide turn or a walk back isn't held against him.</dd></div>
+          <div><dt>Leads</dt><dd>Primary lead at the windup, total lead at release and the ground he gained in between.</dd></div>
+          <div><dt>Derived metrics</dt><dd>First step, acceleration and top speed, calculated from the tracking data where MLB no longer publishes them. Every metric is labeled published or derived.</dd></div>
         </dl>
-      </div>
-      <div>
-        <h3>Data &amp; build</h3>
-        <ul class="facts-list">
-          <li><b class="num">5,061</b> lines of code: about 3,700 in R and about 1,280 in JavaScript</li>
-          <li>Custom canvas playback engine with play, scrub, frame-by-frame and full-route modes</li>
-          <li>Reads the tracking feed in either of its two layouts and can tell the ball's track apart from a player's</li>
-        </ul>
-        <div class="stack"><span>R</span><span>Shiny</span><span>httr2</span><span>JavaScript (Canvas)</span><span>jsPDF</span><span>MediaRecorder</span><span>MLB Stats API</span><span>Hawk-Eye tracking</span></div>
-        <p class="note-sm">The PDF tries nine layouts to keep every report on one page. The screen and the PDF pull from the same function, so the numbers always match. Each runner is processed on his own, so one bad track doesn't break the whole play. Every metric is labeled as published by MLB or derived by the app.</p>
-        <p class="label" style="margin-top:16px">Example shown: TOR @ HOU, Aug 5, 2026</p>
       </div>
     </div>
 
-    <div class="reports">
-      <div class="r-head"><h3>Exported route report</h3><span class="label">Tap to enlarge</span></div>
+    <div class="attach">
+      <h3 class="sec-h">Attachment: exported route report</h3>
       <div class="thumbs" data-set="br">
-        <button class="thumb" data-src="reports/br-1.webp" data-cap="Baserunning route report · Yainer Diaz single, Bot 4, Aug 5, 2026"><img src="reports/br-1.webp" alt="Baserunning route report for a Yainer Diaz single"><span>Diaz single · Altuve scores</span></button>
+        <button class="thumb" data-src="reports/br-1.webp" data-cap="Route report, Yainer Diaz single, bottom 4th, Aug 5, 2026"><img src="reports/br-1.webp" alt="Baserunning route report for a Yainer Diaz single"><span>Diaz single, Altuve scores</span></button>
       </div>
     </div>
   </section>
 
-  <!-- GAMEDATA PRO -->
-  <section class="project" id="gamedata">
-    <div class="p-head">
-      <div><span class="label phase">The morning after · Post-game reporting</span><h2>GameData Pro</h2></div>
-      <p class="q"><b>Built for the morning after a game.</b> Load any game and get a team report plus a report for every pitcher and hitter. Click any pitch or batted ball to pull up the video. Every report exports as a print-ready PDF.</p>
+  <!-- 3. GAMEDATA PRO -->
+  <section class="report" id="gamedata">
+    <div class="rhead">
+      <div class="no">3</div>
+      <div><h2>GameData Pro</h2><p>The morning after. Team, pitcher and hitter reports from last night's game.</p></div>
     </div>
+    <p class="lede">Built for the morning after a game. Load any game and get a team report plus a report for every pitcher and hitter. Click any pitch or batted ball to pull up the video. Every report exports as a print-ready PDF.</p>
 
-    <div class="player" data-player style="margin-bottom:36px">
-      <div class="vid-title"><b>Game and player reports</b><span class="label">2:58</span></div>
-      <video src="media/gd.mp4" poster="media/gd.jpg" controls muted playsinline preload="metadata" style="margin-top:12px"></video>
+    <div class="exhibit" data-player>
+      <div class="cap"><b>Exhibit 3A. Screen recording</b><span>2:58, no audio</span></div>
+      <video src="media/gd.mp4" poster="media/gd.jpg" controls muted playsinline preload="metadata"></video>
       <div class="chapters">
         <button data-t="0"><span>0:00</span>Load a game</button>
         <button data-t="6"><span>0:06</span>Box score</button>
@@ -516,134 +446,134 @@ dl.skills dt{font:600 11px/1.7 var(--body)}
         <button data-t="84"><span>1:24</span>Strike zone by pitch</button>
         <button data-t="108"><span>1:48</span>Pitch mix</button>
         <button data-t="120"><span>2:00</span>Hitter report</button>
-        <button data-t="144"><span>2:24</span>At-bat video, camera angles</button>
+        <button data-t="144"><span>2:24</span>At-bat video and angles</button>
         <button data-t="174"><span>2:54</span>Hitter spray chart</button>
       </div>
     </div>
 
-    <div class="feature-report">
-      <button class="thumb" data-set-open="gd" data-index="0" style="cursor:zoom-in"><img src="reports/pg_game-1.webp" alt="Post-game report cover, Dodgers 3, Braves 1" style="aspect-ratio:auto"><span>Post-game packet cover · LAD 3, ATL 1 · Oct 6, 2026</span></button>
-      <div>
-        <div class="detail" style="grid-template-columns:minmax(0,1fr);margin-top:0;gap:28px">
-          <div>
-            <h3>What it does</h3>
-            <ul>
-              <li><b>Any game, six levels:</b> pick a date and a level from MLB down to Rookie ball, and the app loads every pitch. During a live game, Refresh pulls the newest data and rebuilds any open report.</li>
-              <li><b>Box score that matches the official line:</b> it uses the official scorer's IP, ER, AB and LOB, and handles edge cases like catcher's interference, sac flies in OBP, mid-inning subs and unfinished plate appearances.</li>
-              <li><b>Team, pitcher and hitter reports:</b> arsenals with IVB, HB, spin and extension, true release points, quality of contact, swing decisions and spray charts with pull, center and oppo splits by handedness.</li>
-              <li><b>Click-to-watch video:</b> every pitch and batted ball on a chart opens its clip in any available camera angle. The app remembers the last angle you picked.</li>
-              <li><b>Print-ready exports:</b> each report is a single file laid out for letter paper, with high-resolution charts, and saves straight to PDF.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Data &amp; build</h3>
-            <ul class="facts-list">
-              <li><b class="num">4,810</b> lines of R</li>
-              <li>Converts the MLB feed into TrackMan-style columns, so the same reports run on MLB data or TrackMan CSVs</li>
-            </ul>
-            <div class="stack"><span>R</span><span>Shiny</span><span>shinyjs</span><span>plotly</span><span>ggplot2</span><span>DT</span><span>HTML/CSS print templates</span><span>MLB Stats API</span></div>
-          </div>
-        </div>
+    <div class="feature">
+      <button class="thumb" data-set-open="gd" data-index="0"><img src="reports/pg_game-1.webp" alt="Post-game report cover, Dodgers 3, Braves 1"><span>Post-game packet cover, LAD 3 ATL 1, Oct 6, 2026</span></button>
+      <div class="block">
+        <h3 class="sec-h">What it does</h3>
+        <ul>
+          <li><b>Any game, six levels.</b> Pick a date and a level from MLB down to Rookie ball, and the app loads every pitch. During a live game, Refresh pulls the newest data and rebuilds any open report.</li>
+          <li><b>Box score that matches the official line.</b> It uses the official scorer's IP, ER, AB and LOB, and handles edge cases like catcher's interference, sac flies in OBP, mid-inning subs and unfinished plate appearances.</li>
+          <li><b>Team, pitcher and hitter reports</b> with arsenals, true release points, quality of contact, swing decisions and spray charts with pull, center and oppo splits by handedness.</li>
+          <li><b>Click-to-watch video.</b> Every pitch and batted ball on a chart opens its clip in any available camera angle.</li>
+          <li><b>Print-ready exports.</b> Each report is a single file laid out for letter paper that saves straight to PDF.</li>
+        </ul>
+        <p class="built"><b>Built with</b> R, Shiny, shinyjs, plotly, ggplot2, DT and HTML/CSS print templates on the MLB Stats API. 4,810 lines of R. It converts the MLB feed into TrackMan-style columns, so the same reports run on MLB data or TrackMan CSVs.</p>
       </div>
     </div>
 
-    <div class="reports">
-      <div class="r-head"><h3>Every page</h3><span class="label">Tap to enlarge</span></div>
+    <div class="attach">
+      <h3 class="sec-h">Attachments: every page from Dodgers at Braves, Oct 6, 2026</h3>
       <div class="thumbs" data-set="gd">
-        <button class="thumb" data-src="reports/pg_game-1.webp" data-cap="Post-game packet · cover"><img src="reports/pg_game-1.webp" alt=""><span>Packet · cover</span></button>
-        <button class="thumb" data-src="reports/pg_game-2.webp" data-cap="Post-game packet · pitching"><img src="reports/pg_game-2.webp" alt=""><span>Packet · pitching</span></button>
-        <button class="thumb" data-src="reports/pg_game-3.webp" data-cap="Post-game packet · arsenals"><img src="reports/pg_game-3.webp" alt=""><span>Packet · arsenals</span></button>
-        <button class="thumb" data-src="reports/pg_game-4.webp" data-cap="Post-game packet · team hitting"><img src="reports/pg_game-4.webp" alt=""><span>Packet · team hitting</span></button>
-        <button class="thumb" data-src="reports/pg_game-5.webp" data-cap="Post-game packet · spray charts"><img src="reports/pg_game-5.webp" alt=""><span>Packet · spray charts</span></button>
-        <button class="thumb" data-src="reports/pg_pitcher-v2-1.webp" data-cap="Pitcher report · Chris Sale · page 1"><img src="reports/pg_pitcher-v2-1.webp" alt=""><span>Pitcher · Chris Sale (1/2)</span></button>
-        <button class="thumb" data-src="reports/pg_pitcher-v2-2.webp" data-cap="Pitcher report · Chris Sale · page 2, batters faced"><img src="reports/pg_pitcher-v2-2.webp" alt=""><span>Pitcher · Chris Sale (2/2)</span></button>
-        <button class="thumb" data-src="reports/pg_hitter-1.webp" data-cap="Hitter report · Ozzie Albies · page 1"><img src="reports/pg_hitter-1.webp" alt=""><span>Hitter · Ozzie Albies (1/2)</span></button>
-        <button class="thumb" data-src="reports/pg_hitter-2.webp" data-cap="Hitter report · Ozzie Albies · page 2, plate appearances"><img src="reports/pg_hitter-2.webp" alt=""><span>Hitter · Ozzie Albies (2/2)</span></button>
-        <button class="thumb" data-src="reports/pg_box-1.webp" data-cap="Box score · LAD @ ATL · Oct 6, 2026"><img src="reports/pg_box-1.webp" alt=""><span>Box score</span></button>
+        <button class="thumb" data-src="reports/pg_game-1.webp" data-cap="Post-game packet, cover"><img src="reports/pg_game-1.webp" alt=""><span>Packet, cover</span></button>
+        <button class="thumb" data-src="reports/pg_game-2.webp" data-cap="Post-game packet, pitching"><img src="reports/pg_game-2.webp" alt=""><span>Packet, pitching</span></button>
+        <button class="thumb" data-src="reports/pg_game-3.webp" data-cap="Post-game packet, arsenals"><img src="reports/pg_game-3.webp" alt=""><span>Packet, arsenals</span></button>
+        <button class="thumb" data-src="reports/pg_game-4.webp" data-cap="Post-game packet, team hitting"><img src="reports/pg_game-4.webp" alt=""><span>Packet, team hitting</span></button>
+        <button class="thumb" data-src="reports/pg_game-5.webp" data-cap="Post-game packet, spray charts"><img src="reports/pg_game-5.webp" alt=""><span>Packet, spray charts</span></button>
+        <button class="thumb" data-src="reports/pg_pitcher-v2-1.webp" data-cap="Pitcher report, Chris Sale, page 1"><img src="reports/pg_pitcher-v2-1.webp" alt=""><span>Chris Sale, page 1</span></button>
+        <button class="thumb" data-src="reports/pg_pitcher-v2-2.webp" data-cap="Pitcher report, Chris Sale, page 2"><img src="reports/pg_pitcher-v2-2.webp" alt=""><span>Chris Sale, page 2</span></button>
+        <button class="thumb" data-src="reports/pg_hitter-1.webp" data-cap="Hitter report, Ozzie Albies, page 1"><img src="reports/pg_hitter-1.webp" alt=""><span>Ozzie Albies, page 1</span></button>
+        <button class="thumb" data-src="reports/pg_hitter-2.webp" data-cap="Hitter report, Ozzie Albies, page 2"><img src="reports/pg_hitter-2.webp" alt=""><span>Ozzie Albies, page 2</span></button>
+        <button class="thumb" data-src="reports/pg_box-1.webp" data-cap="Box score, LAD at ATL, Oct 6, 2026"><img src="reports/pg_box-1.webp" alt=""><span>Box score</span></button>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT / EXPERIENCE -->
-  <section class="xp" id="about">
-    <div class="xp-head">
-      <div><span class="label">Resume</span><h2>Experience</h2></div>
+  <!-- 4. BACKGROUND -->
+  <section class="report" id="about">
+    <div class="rhead">
+      <div class="no">4</div>
+      <div><h2>Background</h2><p>Experience, education and skills.</p></div>
     </div>
-    <div class="xp-grid">
-      <ol class="jobs">
-        <li>
-          <div class="job-top"><div><h3>Minor League Technology Apprentice</h3><span class="org">Houston Astros · FCL Astros &amp; rehab group</span></div><span class="label num">Feb 2026 – Present</span></div>
-          <ul>
-            <li>Wrote scouting reports on opposing pitchers and went over them with hitters in the dugout before and after at-bats.</li>
-            <li>Built R/Shiny and Python apps connected to our internal SQL database and the MLB Stats API, including a hitting app that turns TrackMan and Hawk-Eye data into daily reports for the hitting staff and a baserunner route efficiency tool.</li>
-            <li>Took over hitter scheduling, programming and early work after the hitting coach left midseason.</li>
-            <li>Created hitter reports and goals for the front office to aid the player development process.</li>
-            <li>Became a uniformed coach during extended spring training and coached first base on the road.</li>
-            <li>Developed and ran catcher early work all season and covered infielders and outfielders when needed.</li>
-            <li>Cut video of draft prospects for the amateur scouting department ahead of the 2026 draft.</li>
-            <li>Set up, broke down and uploaded all video for the FCL Astros and rehab group, and captured data across Hawk-Eye, TrackMan, Edgertronic and Blast.</li>
-          </ul>
-        </li>
-        <li>
-          <div class="job-top"><div><h3>Assistant Baseball Coach</h3><span class="org">Eastern University</span></div><span class="label num">Jul 2025 – Jan 2026</span></div>
-          <ul>
-            <li>Developed practice plans for outfielders, hitters and baserunners.</li>
-            <li>Academic advisor for 8 student-athletes.</li>
-          </ul>
-        </li>
-        <li>
-          <div class="job-top"><div><h3>Assistant Baseball Coach</h3><span class="org">Flag City Sluggers</span></div><span class="label num">Summer 2025</span></div>
-          <ul>
-            <li>Responsible for the hitters, infielders and outfielders.</li>
-            <li>Threw BP, hit fungos and led drill series for pregame and practice.</li>
-            <li>Worked directly with the head coach to schedule trips, design practice plans and write lineups.</li>
-            <li>Worked with Rylan Mills, an 18th-round pick of the Milwaukee Brewers in the 2025 MLB Draft.</li>
-          </ul>
-        </li>
-      </ol>
-      <aside class="side">
-        <div class="resume-card">
+
+    <div class="cols" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
+      <div class="block">
+        <h3 class="sec-h">Experience</h3>
+        <ol class="jobs">
+          <li>
+            <div class="when">Feb 2026 to present</div>
+            <div><h3>Minor League Technology Apprentice</h3><div class="org">Houston Astros, FCL Astros and rehab group</div>
+              <ul>
+                <li>Wrote scouting reports on opposing pitchers and went over them with hitters in the dugout before and after at-bats.</li>
+                <li>Built R/Shiny and Python apps connected to our internal SQL database and the MLB Stats API, including a hitting app that turns TrackMan and Hawk-Eye data into daily reports for the hitting staff and a baserunner route efficiency tool.</li>
+                <li>Took over hitter scheduling, programming and early work after the hitting coach left midseason.</li>
+                <li>Created hitter reports and goals for the front office to aid the player development process.</li>
+                <li>Became a uniformed coach during extended spring training and coached first base on the road.</li>
+                <li>Developed and ran catcher early work all season and covered infielders and outfielders when needed.</li>
+                <li>Cut video of draft prospects for the amateur scouting department ahead of the 2026 draft.</li>
+                <li>Set up, broke down and uploaded all video for the FCL Astros and rehab group, and captured data across Hawk-Eye, TrackMan, Edgertronic and Blast.</li>
+              </ul></div>
+          </li>
+          <li>
+            <div class="when">Jul 2025 to Jan 2026</div>
+            <div><h3>Assistant Baseball Coach</h3><div class="org">Eastern University</div>
+              <ul>
+                <li>Developed practice plans for outfielders, hitters and baserunners.</li>
+                <li>Academic advisor for 8 student-athletes.</li>
+              </ul></div>
+          </li>
+          <li>
+            <div class="when">Summer 2025</div>
+            <div><h3>Assistant Baseball Coach</h3><div class="org">Flag City Sluggers</div>
+              <ul>
+                <li>Responsible for the hitters, infielders and outfielders.</li>
+                <li>Threw BP, hit fungos and led drill series for pregame and practice.</li>
+                <li>Worked directly with the head coach to schedule trips, design practice plans and write lineups.</li>
+                <li>Worked with Rylan Mills, an 18th-round pick of the Milwaukee Brewers in the 2025 MLB Draft.</li>
+              </ul></div>
+          </li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3 class="sec-h">Resume</h3>
+        <div class="resume">
           <div class="thumbs" data-set="cv" style="grid-template-columns:minmax(0,1fr)">
-            <button class="thumb" data-src="resume/resume.webp" data-cap="Cael Magill · Resume"><img src="resume/resume.webp" alt="Cael Magill resume preview"><span>Resume · 1 page · PDF</span></button>
+            <button class="thumb" data-src="resume/resume.webp" data-cap="Cael Magill, resume"><img src="resume/resume.webp" alt="Cael Magill resume preview"><span>1 page, PDF</span></button>
           </div>
-          <a class="btn dl-resume" href="resume/Cael_Magill_Resume.pdf" download>Download resume (PDF)</a>
-          
+          <div>
+            <a class="btn dl-resume" href="resume/Cael_Magill_Resume.pdf" download>Download resume</a>
+            
+          </div>
         </div>
-        <div>
-          <h3 class="side-h">Education</h3>
-          <ul class="cv">
-            <li><span class="label num">Dec 2026</span><div class="what"><b>MBA, Organizational Management</b><span>Eastern University · St. Davids, PA · 3.89 GPA</span></div></li>
-            <li><span class="label num">May 2025</span><div class="what"><b>BS Management, Certificate in Entrepreneurship</b><span>Marietta College · Marietta, OH · 3.74 GPA</span></div></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="side-h">Skills</h3>
-          <dl class="skills">
-            <dt>On field</dt><dd>Throw BP, hit fungos, lead catcher and outfield defensive work, run cage and field work for hitters</dd>
-            <dt>Technical</dt><dd>R/Shiny, Python, SQL, MLB Stats API, Microsoft Office</dd>
-            <dt>Tracking</dt><dd>Hawk-Eye, TrackMan, Blast, Edgertronic, Uplift, NewtForce</dd>
-            <dt>Reporting</dt><dd>Scouting and hitter reports, hitter and defensive programming</dd>
-          </dl>
-        </div>
-      </aside>
-    </div>
-    <div class="note">Every example on this page uses MLB data from the MLB Stats API and Baseball Savant. No Astros internal data is shown.</div>
-  </section>
 
-  <section class="contact" id="contact">
-    <span class="label">Contact</span>
-    <h2>Let's talk</h2>
-    <p>I'm looking for hitting coach, player development and baseball technology roles. I'm happy to walk you through any of these tools live.</p>
-    <div class="email">
-      <code id="email">caelmagill@gmail.com</code>
-      <button class="btn" id="copy" type="button">Copy email</button>
-      <a class="btn btn-ghost dl-resume" href="resume/Cael_Magill_Resume.pdf" download>Download resume</a>
+        <h3 class="sec-h" style="margin-top:26px">Education</h3>
+        <table class="tbl">
+          <tbody>
+            <tr><td>MBA</td><td>Organizational Management, Eastern University, St. Davids, PA. December 2026, 3.89 GPA.</td></tr>
+            <tr><td>BS</td><td>Management with a Certificate in Entrepreneurship, Marietta College, Marietta, OH. May 2025, 3.74 GPA.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sec-h" style="margin-top:26px">Skills</h3>
+        <table class="tbl">
+          <tbody>
+            <tr><td>On field</td><td>Throw BP, hit fungos, lead catcher and outfield defensive work, run cage and field work for hitters</td></tr>
+            <tr><td>Technical</td><td>R/Shiny, Python, SQL, MLB Stats API, Microsoft Office</td></tr>
+            <tr><td>Tracking</td><td>Hawk-Eye, TrackMan, Blast, Edgertronic, Uplift, NewtForce</td></tr>
+            <tr><td>Reporting</td><td>Scouting and hitter reports, hitter and defensive programming</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-
-  <footer class="foot">Cael Magill · 2026</footer>
-</div>
+  <section class="signoff" id="contact">
+    <div>
+      <h3 class="sec-h" style="border:0;padding:0;margin-bottom:6px">Contact</h3>
+      <p>I'm looking for hitting coach, player development and baseball technology roles. I'm happy to walk you through any of these tools live.</p>
+      <div class="email">
+        <code id="email">caelmagill@gmail.com</code>
+        <button class="btn" id="copy" type="button">Copy email</button>
+        <a class="btn ghost dl-resume" href="resume/Cael_Magill_Resume.pdf" download>Download resume</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="foot"><span>Every example uses MLB data from the MLB Stats API and Baseball Savant. No Astros internal data is shown.</span><span>End of report</span></footer>
 
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Report page">
   <img id="lb-img" alt="">
@@ -656,7 +586,6 @@ dl.skills dt{font:600 11px/1.7 var(--body)}
 </div>
 
 <script>
-// chaptered players
 document.querySelectorAll('[data-player]').forEach(p=>{
   const v=p.querySelector('video'), btns=[...p.querySelectorAll('.chapters button')];
   const times=btns.map(b=>+b.dataset.t);
@@ -665,7 +594,6 @@ document.querySelectorAll('[data-player]').forEach(p=>{
   v.addEventListener('timeupdate',mark); mark();
   v.addEventListener('play',()=>document.querySelectorAll('video').forEach(o=>{if(o!==v)o.pause()}));
 });
-// lightbox
 const lb=document.getElementById('lb'), img=document.getElementById('lb-img'), cap=document.getElementById('lb-cap');
 let set=[], idx=0, last=null;
 function show(){const b=set[idx]; img.src=b.dataset.src; img.alt=b.dataset.cap; cap.textContent=b.dataset.cap+(set.length>1?`  (${idx+1}/${set.length})`:'');
@@ -679,12 +607,10 @@ document.getElementById('lb-next').onclick=()=>{idx=(idx+1)%set.length;show()};
 document.getElementById('lb-close').onclick=close;
 lb.addEventListener('click',e=>{if(e.target===lb)close()});
 document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lb-next').click();if(e.key==='ArrowLeft')document.getElementById('lb-prev').click();});
-// copy email
 document.getElementById('copy').addEventListener('click',async e=>{const t=document.getElementById('email').textContent;
   try{await navigator.clipboard.writeText(t);e.target.textContent='Copied';}
   catch{const r=document.createRange();r.selectNodeContents(document.getElementById('email'));const s=getSelection();s.removeAllRanges();s.addRange(r);e.target.textContent='Selected, press copy';}
   setTimeout(()=>e.target.textContent='Copy email',2000);});
-
 
 </script>
 

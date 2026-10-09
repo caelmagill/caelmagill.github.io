@@ -101,7 +101,7 @@ p{margin:0}
 .chapters button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
 .chapters button[aria-current="true"]{background:var(--ink);color:#fff}
 .chapters button[aria-current="true"] span{color:#c9d2e6}
-.two-ex{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.two-ex{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .two-ex .exhibit .chapters{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 
 /* ruled tables */
@@ -143,6 +143,15 @@ dl.defs dd{margin:0;color:var(--ink)}
 .feature{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;margin-top:26px;align-items:start}
 .feature .thumb img{aspect-ratio:auto}
 
+.exports{display:grid;grid-template-columns:2fr 2fr 1fr;gap:22px 24px}
+.export{min-width:0}
+.export:first-child{grid-column:1 / -1}
+.export:first-child .thumbs{grid-template-columns:repeat(5,minmax(0,1fr))}
+.export .thumbs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.export:last-child .thumbs{grid-template-columns:minmax(0,1fr)}
+.export h4{font-size:14px;font-weight:700;margin:0 0 8px}
+.export h4 span{display:block;font-weight:400;font-size:12.5px;color:var(--pencil)}
+@media (max-width:760px){.exports{grid-template-columns:minmax(0,1fr)}.export:first-child .thumbs{grid-template-columns:repeat(3,minmax(0,1fr))}.export:last-child .thumbs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* background */
 .jobs{list-style:none;margin:0;padding:0}
 .jobs > li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding-block:14px;border-bottom:1px solid var(--hair)}
@@ -165,6 +174,7 @@ dl.defs dd{margin:0;color:var(--ink)}
 .signoff{margin-top:56px;border-top:3px double var(--ink);padding-top:16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end}
 .signoff p{max-width:58ch}
 .email{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.email.links{margin-top:10px}
 .email code{font:700 20px/1.2 var(--face);user-select:all;border-bottom:2px solid var(--ink);padding-bottom:2px;word-break:break-all}
 .foot{max-width:940px;margin:14px auto 0;font-size:12.5px;color:#6b7280;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
@@ -199,13 +209,15 @@ dl.defs dd{margin:0;color:var(--ink)}
 
 <main class="sheet">
   <header class="runhead">
-    <span>Cael Magill, portfolio, October 2026</span>
+    <span>Portfolio</span>
     <nav aria-label="Sections">
       <a href="#pitcher-prep">Pitcher Advance</a>
       <a href="#baserunning">Baserunning Review</a>
       <a href="#gamedata">GameData Pro</a>
+      <a href="#field">On the Field</a>
       <a href="#about">Background</a>
       <a href="#contact">Contact</a>
+      <a href="https://www.linkedin.com/in/cael-magill/" target="_blank" rel="noopener">LinkedIn</a>
     </nav>
   </header>
 
@@ -214,29 +226,30 @@ dl.defs dd{margin:0;color:var(--ink)}
       <div class="kind">ADVANCE REPORT</div>
       <h1>Cael Magill</h1>
     </div>
-    <div class="stamp">Prepared by C. Magill<br>October 2026</div>
+    <div class="stamp">October 2026</div>
   </section>
 
   <div class="form" role="group" aria-label="Summary fields">
-    <div class="wide"><small>Position</small><b>Hitting coach, player development technology</b></div>
+    <div class="wide"><small>Position</small><b>Minor League Technology Apprentice</b></div>
     <div><small>Organization</small><b>Houston Astros</b></div>
-    <div><small>Assignment</small><b>FCL Astros, since Feb 2026</b></div>
-    <div><small>Builds in</small><b>R/Shiny, JavaScript, Python, SQL</b></div>
-    <div><small>Tracking</small><b>Hawk-Eye, TrackMan, Blast, Edgertronic</b></div>
-    <div><small>On the field</small><b>BP, fungos, catchers, 1B coach</b></div>
-    <div><small>Education</small><b>MBA, Eastern (Dec 2026)</b></div>
+    <div><small>Assignment</small><b>FCL Astros &amp; Rehab</b></div>
+    <div><small>Builds in</small><b>R/Shiny, JavaScript, Python, SQL, Excel</b></div>
+    <div><small>Tracking</small><b>Hawk-Eye, TrackMan, Blast</b></div>
+    <div><small>On the field</small><b>BP, fungos, hands-on coaching, in-game adjustments</b></div>
+    <div><small>Education</small><b>MBA, Eastern (Dec 2026)<br>BS in Management, Marietta (2025)</b></div>
   </div>
 
   <div class="summary">
     <div>
       <h2>Summary</h2>
-      <p>I coach hitters and build the tools they use. With the Houston Astros I'm in uniform with the FCL Astros, where I run hitter and catcher early work, coach first base on the road and go over opposing-pitcher reports with hitters in the dugout.</p>
-      <p>I also build the apps behind that work using TrackMan, Hawk-Eye and MLB data. This packet covers three of them, in the order they get used on a game day, with a screen recording of each one and the reports they export.</p>
+      <p>I bring a true blend of player development experience paired with advance scouting and model development. This season with the Astros, off the field I covered opposing pitcher scouting reports, defensive positioning cards and new models and applications built to strengthen our player development process. On-field work included throwing BP, hitting fungos, coaching the bases, working with every position group and helping oversee scheduling and programming for the players.</p>
+      <p>This portfolio shows a few of the applications I built this past year. Each one has been switched to pull data from Baseball Savant and the MLB Stats API instead of the Astros’ internal database. I also included sections covering on-field abilities, background and resume, and contact information.</p>
       <ol class="contents">
         <li><a href="#pitcher-prep"><span class="no">1</span><span class="nm">Pitcher Advance</span><span class="lead"></span><span class="when">before first pitch</span></a></li>
         <li><a href="#baserunning"><span class="no">2</span><span class="nm">Baserunning Review</span><span class="lead"></span><span class="when">reviewing the play</span></a></li>
         <li><a href="#gamedata"><span class="no">3</span><span class="nm">GameData Pro</span><span class="lead"></span><span class="when">the morning after</span></a></li>
-        <li><a href="#about"><span class="no">4</span><span class="nm">Background and resume</span><span class="lead"></span><span class="when">experience</span></a></li>
+        <li><a href="#field"><span class="no">4</span><span class="nm">On the Field</span><span class="lead"></span><span class="when">hands-on coaching</span></a></li>
+        <li><a href="#about"><span class="no">5</span><span class="nm">Background and resume</span><span class="lead"></span><span class="when">experience</span></a></li>
       </ol>
     </div>
     <figure class="fig" style="margin:0">
@@ -344,6 +357,7 @@ dl.defs dd{margin:0;color:var(--ink)}
           <div class="wrow" title="xSLG on contact: 0.055"><span>xSLGcon</span><i style="--w:5.5%"></i><b>.055</b></div>
           <div class="wrow" title="xwOBA on contact: 0.000"><span>xwOBAcon</span><i style="--w:0%"></i><b>.000</b></div>
         </figure>
+        <p class="note" style="margin-top:10px">Why contact quality barely counts: what happens once the ball is in play is mostly noise for a pitcher, so xwOBA and xSLG on contact in one half of his games say very little about the other half. They also overlap heavily with each other and with run value, so the ridge regression gave their credit to the more repeatable pieces, whiff and chase.</p>
         <p style="margin-top:12px">On games the model didn't see, the score predicted run value better than run value itself did (r = .223, compared with .127 for RV/100 alone and .196 for the original hand-picked weights). Split-half reliability is .637.</p>
         <p class="note" style="margin-top:12px">Data: 714,483 pitches from 2,429 games, 99.9% matched between the MLB Stats API and Baseball Savant. 785 qualified pitcher-pitch combinations, ranked overall and by batter side. The pipeline saves every game feed and daily Savant file, checks that the two sources line up and retries failed requests.</p>
         <p class="built"><b>Built with</b> R, Shiny and bslib, plotly, DT, ggplot2 and patchwork, glmnet, furrr, httr2, MLB Stats API and Baseball Savant.</p>
@@ -452,7 +466,7 @@ dl.defs dd{margin:0;color:var(--ink)}
     </div>
 
     <div class="feature">
-      <button class="thumb" data-set-open="gd" data-index="0"><img src="reports/pg_game-1.webp" alt="Post-game report cover, Dodgers 3, Braves 1"><span>Post-game packet cover, LAD 3 ATL 1, Oct 6, 2026</span></button>
+      <button class="thumb" data-set-open="gd" data-index="0"><img src="reports/pg_game-1.webp" alt="Post-game report cover, Dodgers 3, Braves 1"><span>Team packet cover, LAD 3 ATL 1, Oct 6, 2026</span></button>
       <div class="block">
         <h3 class="sec-h">What it does</h3>
         <ul>
@@ -460,33 +474,89 @@ dl.defs dd{margin:0;color:var(--ink)}
           <li><b>Box score that matches the official line.</b> It uses the official scorer's IP, ER, AB and LOB, and handles edge cases like catcher's interference, sac flies in OBP, mid-inning subs and unfinished plate appearances.</li>
           <li><b>Team, pitcher and hitter reports</b> with arsenals, true release points, quality of contact, swing decisions and spray charts with pull, center and oppo splits by handedness.</li>
           <li><b>Click-to-watch video.</b> Every pitch and batted ball on a chart opens its clip in any available camera angle.</li>
-          <li><b>Print-ready exports.</b> Each report is a single file laid out for letter paper that saves straight to PDF.</li>
+          <li><b>Print-ready exports.</b> The team packet, each pitcher and hitter report and the box score export separately, each laid out for letter paper and saved straight to PDF.</li>
         </ul>
-        <p class="built"><b>Built with</b> R, Shiny, shinyjs, plotly, ggplot2, DT and HTML/CSS print templates on the MLB Stats API. 4,810 lines of R. It converts the MLB feed into TrackMan-style columns, so the same reports run on MLB data or TrackMan CSVs.</p>
+        <p class="built"><b>Built with</b> R, Shiny, shinyjs, plotly, ggplot2, DT and HTML/CSS print templates on the MLB Stats API. 4,810 lines of R.</p>
       </div>
     </div>
 
     <div class="attach">
-      <h3 class="sec-h">Attachments: every page from Dodgers at Braves, Oct 6, 2026</h3>
-      <div class="thumbs" data-set="gd">
-        <button class="thumb" data-src="reports/pg_game-1.webp" data-cap="Post-game packet, cover"><img src="reports/pg_game-1.webp" alt=""><span>Packet, cover</span></button>
-        <button class="thumb" data-src="reports/pg_game-2.webp" data-cap="Post-game packet, pitching"><img src="reports/pg_game-2.webp" alt=""><span>Packet, pitching</span></button>
-        <button class="thumb" data-src="reports/pg_game-3.webp" data-cap="Post-game packet, arsenals"><img src="reports/pg_game-3.webp" alt=""><span>Packet, arsenals</span></button>
-        <button class="thumb" data-src="reports/pg_game-4.webp" data-cap="Post-game packet, team hitting"><img src="reports/pg_game-4.webp" alt=""><span>Packet, team hitting</span></button>
-        <button class="thumb" data-src="reports/pg_game-5.webp" data-cap="Post-game packet, spray charts"><img src="reports/pg_game-5.webp" alt=""><span>Packet, spray charts</span></button>
-        <button class="thumb" data-src="reports/pg_pitcher-v2-1.webp" data-cap="Pitcher report, Chris Sale, page 1"><img src="reports/pg_pitcher-v2-1.webp" alt=""><span>Chris Sale, page 1</span></button>
-        <button class="thumb" data-src="reports/pg_pitcher-v2-2.webp" data-cap="Pitcher report, Chris Sale, page 2"><img src="reports/pg_pitcher-v2-2.webp" alt=""><span>Chris Sale, page 2</span></button>
-        <button class="thumb" data-src="reports/pg_hitter-1.webp" data-cap="Hitter report, Ozzie Albies, page 1"><img src="reports/pg_hitter-1.webp" alt=""><span>Ozzie Albies, page 1</span></button>
-        <button class="thumb" data-src="reports/pg_hitter-2.webp" data-cap="Hitter report, Ozzie Albies, page 2"><img src="reports/pg_hitter-2.webp" alt=""><span>Ozzie Albies, page 2</span></button>
-        <button class="thumb" data-src="reports/pg_box-1.webp" data-cap="Box score, LAD at ATL, Oct 6, 2026"><img src="reports/pg_box-1.webp" alt=""><span>Box score</span></button>
+      <h3 class="sec-h">Attachments: exports from Dodgers at Braves, Oct 6, 2026</h3>
+      <div class="exports">
+        <div class="export">
+          <h4>Team packet <span>one export, 5 pages</span></h4>
+          <div class="thumbs" data-set="gd">
+            <button class="thumb" data-src="reports/pg_game-1.webp" data-cap="Team packet, cover"><img src="reports/pg_game-1.webp" alt=""><span>Cover</span></button>
+            <button class="thumb" data-src="reports/pg_game-2.webp" data-cap="Team packet, pitching"><img src="reports/pg_game-2.webp" alt=""><span>Pitching</span></button>
+            <button class="thumb" data-src="reports/pg_game-3.webp" data-cap="Team packet, arsenals"><img src="reports/pg_game-3.webp" alt=""><span>Arsenals</span></button>
+            <button class="thumb" data-src="reports/pg_game-4.webp" data-cap="Team packet, team hitting"><img src="reports/pg_game-4.webp" alt=""><span>Team hitting</span></button>
+            <button class="thumb" data-src="reports/pg_game-5.webp" data-cap="Team packet, spray charts"><img src="reports/pg_game-5.webp" alt=""><span>Spray charts</span></button>
+          </div>
+        </div>
+        <div class="export">
+          <h4>Pitcher report <span>separate export, 2 pages</span></h4>
+          <div class="thumbs" data-set="gd-p">
+            <button class="thumb" data-src="reports/pg_pitcher-v2-1.webp" data-cap="Pitcher report, Chris Sale, page 1"><img src="reports/pg_pitcher-v2-1.webp" alt=""><span>Chris Sale, page 1</span></button>
+            <button class="thumb" data-src="reports/pg_pitcher-v2-2.webp" data-cap="Pitcher report, Chris Sale, page 2"><img src="reports/pg_pitcher-v2-2.webp" alt=""><span>Chris Sale, page 2</span></button>
+          </div>
+        </div>
+        <div class="export">
+          <h4>Hitter report <span>separate export, 2 pages</span></h4>
+          <div class="thumbs" data-set="gd-h">
+            <button class="thumb" data-src="reports/pg_hitter-1.webp" data-cap="Hitter report, Ozzie Albies, page 1"><img src="reports/pg_hitter-1.webp" alt=""><span>Ozzie Albies, page 1</span></button>
+            <button class="thumb" data-src="reports/pg_hitter-2.webp" data-cap="Hitter report, Ozzie Albies, page 2"><img src="reports/pg_hitter-2.webp" alt=""><span>Ozzie Albies, page 2</span></button>
+          </div>
+        </div>
+        <div class="export">
+          <h4>Box score <span>separate export, 1 page</span></h4>
+          <div class="thumbs" data-set="gd-b">
+            <button class="thumb" data-src="reports/pg_box-1.webp" data-cap="Box score, LAD at ATL, Oct 6, 2026"><img src="reports/pg_box-1.webp" alt=""><span>Box score</span></button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. BACKGROUND -->
-  <section class="report" id="about">
+  <!-- 4. ON THE FIELD -->
+  <section class="report" id="field">
     <div class="rhead">
       <div class="no">4</div>
+      <div><h2>On the Field</h2><p>Hands-on work with players, every day.</p></div>
+    </div>
+    <p class="lede">The tools above come from time spent on the field. This season with the FCL Astros and rehab group, and before that at Eastern University and with the Flag City Sluggers, the daily work included:</p>
+
+    <div class="two-ex" style="margin-top:22px">
+      <div class="exhibit" data-player>
+        <div class="cap"><b>Exhibit 4A. Batting practice</b><span>0:18, Eastern University</span></div>
+        <video src="media/bp.mp4" poster="media/bp.jpg" controls muted playsinline preload="metadata" style="aspect-ratio:1258/632"></video>
+        <div class="chapters">
+          <button data-t="0"><span>0:00</span>From the front</button>
+          <button data-t="8.4"><span>0:08</span>From behind</button>
+        </div>
+      </div>
+      <div class="exhibit" data-player>
+        <div class="cap"><b>Exhibit 4B. Fungos</b><span>0:30, Eastern University</span></div>
+        <video src="media/fungo.mp4" poster="media/fungo.jpg" controls muted playsinline preload="metadata"></video>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:26px"><table class="tbl">
+      <thead><tr><th>Skill</th><th>What it looks like</th></tr></thead>
+      <tbody>
+        <tr><td>BP</td><td>Threw flips, darts and batting practice in the cages and on the field for daily work and pregame.</td></tr>
+        <tr><td>Fungos</td><td>Hit to infielders and outfielders for defensive work and pregame.</td></tr>
+        <tr><td>Hitter development</td><td>Developed hitter programs, early work, routines and constraints.</td></tr>
+        <tr><td>Defensive development</td><td>Led catcher early work, defensive work and pregame. Assisted in infield and outfield defensive work and pregame.</td></tr>
+        <tr><td>Base coaching</td><td>Picked up pitcher timing, tips and tells in-game to give baserunners an edge.</td></tr>
+        <tr><td>In-game adjustments</td><td>Went over opposing pitcher scouting reports and assisted with defensive shifts and positioning.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 5. BACKGROUND -->
+  <section class="report" id="about">
+    <div class="rhead">
+      <div class="no">5</div>
       <div><h2>Background</h2><p>Experience, education and skills.</p></div>
     </div>
 
@@ -496,7 +566,7 @@ dl.defs dd{margin:0;color:var(--ink)}
         <ol class="jobs">
           <li>
             <div class="when">Feb 2026 to present</div>
-            <div><h3>Minor League Technology Apprentice</h3><div class="org">Houston Astros, FCL Astros and rehab group</div>
+            <div><h3>Minor League Technology Apprentice</h3><div class="org">Houston Astros</div>
               <ul>
                 <li>Wrote scouting reports on opposing pitchers and went over them with hitters in the dugout before and after at-bats.</li>
                 <li>Built R/Shiny and Python apps connected to our internal SQL database and the MLB Stats API, including a hitting app that turns TrackMan and Hawk-Eye data into daily reports for the hitting staff and a baserunner route efficiency tool.</li>
@@ -564,16 +634,19 @@ dl.defs dd{margin:0;color:var(--ink)}
   <section class="signoff" id="contact">
     <div>
       <h3 class="sec-h" style="border:0;padding:0;margin-bottom:6px">Contact</h3>
-      <p>I'm looking for hitting coach, player development and baseball technology roles. I'm happy to walk you through any of these tools live.</p>
+      <p>I'm looking to expand my network and build relationships with all professionals across baseball. My areas of interest are player development, technology, analytics and advance scouting. I'm happy to walk through any of these tools live or share others that aren't in this portfolio. Please reach out by email or LinkedIn to connect!</p>
       <div class="email">
         <code id="email">caelmagill@gmail.com</code>
         <button class="btn" id="copy" type="button">Copy email</button>
         <a class="btn ghost dl-resume" href="resume/Cael_Magill_Resume.pdf" download>Download resume</a>
+        <a class="btn ghost" href="mailto:caelmagill@gmail.com?subject=Reference%20request%20%E2%80%93%20Cael%20Magill&amp;body=Hi%20Cael%2C%0A%0AI%27d%20like%20to%20request%20references.%0A%0AName%3A%0AOrganization%3A%0ARole%20we%27re%20hiring%20for%3A%0A%0AThanks%2C%0A">Request references</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/cael-magill/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
+      <p class="note" style="margin-top:8px">Request references opens an email to caelmagill@gmail.com. Send your name, organization and the role you're hiring for, and I'll send references directly.</p>
     </div>
   </section>
 </main>
-<footer class="foot"><span>Every example uses MLB data from the MLB Stats API and Baseball Savant. No Astros internal data is shown.</span><span>End of report</span></footer>
+<footer class="foot"><span>Every app example uses MLB data from the MLB Stats API and Baseball Savant. No Astros internal data is shown.</span><span>End of report</span></footer>
 
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Report page">
   <img id="lb-img" alt="">
